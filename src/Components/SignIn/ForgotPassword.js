@@ -3,6 +3,9 @@ import { sendPasswordResetEmail } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../Firebase/FirebaseConfig'; // Ensure Firebase is correctly initialized
 import logo from '../Img/main-logo.png';
+import { FaInfoCircle } from 'react-icons/fa'; // Import the icon
+import { Tooltip as ReactTooltip } from 'react-tooltip'; // Import Tooltip
+import 'react-tooltip/dist/react-tooltip.css'; // Import Tooltip CSS
 import '../Styles/ForgotPassword.css';
 
 const ForgotPassword = () => {
@@ -37,22 +40,27 @@ const ForgotPassword = () => {
         <div className="card forgot-card">
           <div className="forgot-password-card-body">
             <div className="forgot-password-img-div mt-2">
-            {/* <h2 className="forgot-password-title">Forgot Password</h2> */}
               <img src={logo} alt="Logo" />
-            
             </div>
             <form onSubmit={handleSendEmail}>
-              <div className="mb-3">
-                <label htmlFor="email" style={{ fontWeight: 'bold' }} className="email-label">Email</label>
+              <div className="mb-3 input-group">
                 <input
                   type="email"
-                  className="form-control email-input"
+                  className="form-control email-input mt-4"
                   id="email"
                   placeholder="Enter Your Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
+                <div
+                  className="input-icon"
+                  data-tooltip-id="email-tooltip"
+                  data-tooltip-content="The email that you used during the sign-up process."
+                >
+                  <FaInfoCircle />
+                </div>
+                <ReactTooltip id="email-tooltip" place="top" effect="solid" className="custom-tooltip" />
               </div>
               {error && <div className="text-danger text-center">{error}</div>}
               {message && <div className="text-success text-center">{message}</div>}
