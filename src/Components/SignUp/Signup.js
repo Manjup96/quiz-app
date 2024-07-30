@@ -288,7 +288,8 @@ import React, { useState } from 'react';
 import { db, auth } from '../Firebase/FirebaseConfig';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+
+import { faEye, faEyeSlash, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import logo from "../Img/main-logo.png"; 
 import './SignUp.css';
 
@@ -341,34 +342,38 @@ const SignUp = () => {
   const canSubmit = name.trim() !== '' && email.trim() !== '' && password.trim() !== '' && mobile.trim() !== '';
 
   return (
-    <div className="main">
+    <div className="signup-main">
       <div className="signup-card">
         <div className="signup-card-body">
-          <div className="img-div">
+          <div className="signup-img-div">
             <img src={logo} alt="Logo" />
           </div>
           <form  className='signup-form' onSubmit={handleSubmit}>
-            <div >
+            <div className='signup_position_relative'>
               <input
                 type="email"
-                className="form-control mt-1"
-                id="email"
+                id="signup_email"
                 placeholder="Enter Your Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
+                <span className="info-icon" data-tooltip="The email that you used during the sign up process.">
+                <FontAwesomeIcon icon={faInfoCircle} />
+              </span> 
             </div>
-            <div className=' position-relative'>
+            <div className='signup_position_relative'>
               <input
                 type={showPassword ? 'text' : 'password'}
-                className="form-control mt-1"
-                id="password"
+                id="signup_password"
                 placeholder="Enter Your Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+               <span className="info-icon" data-tooltip="Your password must be at least 8 characters long.">
+                <FontAwesomeIcon icon={faInfoCircle} />
+              </span>
              
             </div>
             {error && <div className="text-danger text-center">{error}</div>}
