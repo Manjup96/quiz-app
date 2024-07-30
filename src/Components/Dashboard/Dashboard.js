@@ -1,5 +1,7 @@
 import React from 'react';
 import { useAuth } from '../Context/AuthContext';
+import Header from '../Header/Header';
+
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -8,6 +10,7 @@ const Dashboard = () => {
 
   return (
     <div>
+      <Header />
       <h1>Dashboard</h1>
      
         <h1>Welcome, {user.name}!!!</h1>
