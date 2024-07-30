@@ -34,36 +34,38 @@ const ForgotPassword = () => {
   return (
     <div className="main-forgot-password">
       <div className="forgot-password-card">
-        <div className="forgot-password-card-body">
-          <div className="forgot-password-img-div mt-1">
-            <img src={logo} alt="Logo" />
-            <h2 className="forgot-password-title">Forgot Password</h2>
+        <div className="card forgot-card">
+          <div className="forgot-password-card-body">
+            <div className="forgot-password-img-div mt-1">
+              <img src={logo} alt="Logo" />
+              <h2 className="forgot-password-title">Forgot Password</h2>
+            </div>
+            <form onSubmit={handleSendEmail}>
+              <div className="mb-3">
+                <label htmlFor="email" style={{ fontWeight: 'bold' }} className="email-label">Email</label>
+                <input
+                  type="email"
+                  className="form-control email-input"
+                  id="email"
+                  placeholder="Enter Your Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+              {error && <div className="text-danger text-center">{error}</div>}
+              {message && <div className="text-success text-center">{message}</div>}
+              <div className="text-center">
+                <button
+                  type="submit"
+                  className="btn-success send-button"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Sending...' : 'Send Email'}
+                </button>
+              </div>
+            </form>
           </div>
-          <form onSubmit={handleSendEmail}>
-            <div className="mb-3">
-              <label htmlFor="email" style={{ fontWeight: 'bold' }} className="email-label">Email</label>
-              <input
-                type="email"
-                className="form-control email-input"
-                id="email"
-                placeholder="Enter Your Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            {error && <div className="text-danger text-center">{error}</div>}
-            {message && <div className="text-success text-center">{message}</div>}
-            <div className="text-center">
-              <button
-                type="submit"
-                className="btn-success send-button"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? 'Sending...' : 'Send Email'}
-              </button>
-            </div>
-          </form>
         </div>
       </div>
     </div>
