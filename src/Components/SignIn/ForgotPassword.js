@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../Firebase/FirebaseConfig'; // Ensure Firebase is correctly initialized
-import logo from '../Img/Company_logo.png';
+import logo from '../Img/chipper-sage-logo.png';
 import '../Styles/ForgotPassword.css';
 
 const ForgotPassword = () => {
@@ -36,9 +36,10 @@ const ForgotPassword = () => {
       <div className="forgot-password-card">
         <div className="card forgot-card">
           <div className="forgot-password-card-body">
-            <div className="forgot-password-img-div mt-1">
+            <div className="forgot-password-img-div mt-2">
+            <h2 className="forgot-password-title">Forgot Password</h2>
               <img src={logo} alt="Logo" />
-              <h2 className="forgot-password-title">Forgot Password</h2>
+            
             </div>
             <form onSubmit={handleSendEmail}>
               <div className="mb-3">
