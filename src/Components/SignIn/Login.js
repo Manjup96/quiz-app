@@ -127,7 +127,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { auth, db } from '../Firebase/FirebaseConfig';
 import { useAuth } from '../Context/AuthContext';
-import logo from '../Img/Company_logo.png';
+import logo from '../Img/main-logo.png';
 import './Login.css';
 
 const Login = () => {
@@ -188,9 +188,8 @@ const Login = () => {
             <img src={logo} alt="Logo"/>
             {/* <h3>Login</h3> */}
           </div>
-          <form onSubmit={handleLogin}>
+          <form  className='login-form' onSubmit={handleLogin}>
             <div >
-              {/* <label htmlFor="email" style={{ fontWeight: 'bold' }}>Email</label> */}
               <input
                 type="email"
                 id="login_email"
@@ -201,7 +200,6 @@ const Login = () => {
               />
             </div>
             <div className="login-position-relative">
-              {/* <label htmlFor="password" style={{ fontWeight: 'bold' }}>Password</label> */}
               <input
                 type={showPassword ? 'text' : 'password'}
                 id="login_password"
@@ -210,11 +208,7 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              <FontAwesomeIcon
-                icon={showPassword ? faEyeSlash : faEye}
-                onClick={togglePasswordVisibility}
-                className="login-position-absolute"
-              />
+            
             </div>
             {error && <div className="text-danger text-center">{error}</div>}
             <div className="login-button-main">

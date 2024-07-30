@@ -2,7 +2,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../Firebase/FirebaseConfig';
-import logo from '../Img/Company_logo.png';
+import logo from '../Img/main-logo.png';
+import './VerifyOTP.css';
+
+
+
 
 const VerifyOTP = ({ phoneNumber }) => {
   const navigate = useNavigate();
@@ -30,19 +34,16 @@ const VerifyOTP = ({ phoneNumber }) => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center mt-5 pt-5">
-      <div className="card" style={{ width: '36rem' }}>
-        <div className="card-body">
-          <div className="text-center mb-4">
-            <img src={logo} alt="Logo" className="mb-3" style={{ width: '250px', height: '100px' }} />
-            <h3>Enter OTP</h3>
+    <div className="main-verify">
+      <div className=".verify-card" style={{ width: '36rem' }}>
+        <div className="verify-card-body">
+          <div className="verify-img-div">
+            <img src={logo} alt="Logo" />
           </div>
-          <form onSubmit={handleVerifyCode}>
-            <div className="mb-3">
-              <label htmlFor="verificationCode" style={{ fontWeight: 'bold' }}>Verification Code</label>
+          <form className='verifyotp-form' onSubmit={handleVerifyCode}>
+            <div>
               <input
                 type="text"
-                className="form-control mt-1"
                 id="verificationCode"
                 placeholder="Enter the verification code"
                 value={verificationCode}
@@ -52,10 +53,10 @@ const VerifyOTP = ({ phoneNumber }) => {
             </div>
             {error && <div className="text-danger text-center">{error}</div>}
             {message && <div className="text-success text-center">{message}</div>}
-            <div className="text-center">
+            <div className="div-verify-button">
               <button
                 type="submit"
-                className="btn btn-primary"
+                className="verify-button"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? 'Verifying...' : 'Verify Code'}
