@@ -1,0 +1,254 @@
+.main{
+        display: flex;
+        justify-content:center;
+        align-items: center;
+        margin-top: 30px;
+        padding-top: 5px;
+}
+
+.card {
+        width: 28rem;
+        border-radius: 20px;
+    }
+
+.card-body .img-div{
+        margin-bottom: 4px;
+        text-align: center;
+
+}
+
+.card-body .img-div img {
+        height: 100px;
+        width: 250px;
+}
+
+form label{
+        font-weight: bold;
+}
+form #name, #email, #mobile, #password {
+        display: block;
+        width: 73%;
+        padding: .375rem .75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: var(--bs-body-color);
+        appearance: none;
+        background-color: var(--bs-body-bg);
+        background-clip: padding-box;
+        border: var(--bs-border-width) solid var(--bs-border-color);
+        border-radius: 10px;
+        transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        margin-top: 1.25rem !important;
+        margin-left: 55px;
+        height: 50px;
+}
+
+form
+.position-relative{
+        position: relative !important;
+}
+ 
+
+form .position-relative .position-absolute {
+        cursor: pointer;
+        top: 16px;
+        right: 72px;
+    
+}
+
+
+form .button-main {
+        text-align: center;
+        margin-top: 10px;
+}
+
+
+form .button-main .btn-sub{
+        background-color:rgb(14, 158, 14);
+        color: white;
+        border: none;
+        outline: none;
+        font-weight: bold;
+        width: 71%;
+        height: 44px;
+        border-radius: 25px;
+        margin-top: 20px;
+
+}
+form .forgot-password{
+        text-align: center;
+        margin-top: 20px;
+        font-weight: bold;
+}
+
+form .forgot-password a {
+        text-decoration: none;
+        color: #007bff;
+        cursor: pointer;
+        padding: 2px;
+
+}
+
+form .sign-up-text{
+        text-align: center;
+        margin-top: 15px;
+}
+
+form .sign-up-text a {
+        text-decoration: none;
+        color: #007bff;
+        cursor: pointer;
+        font-weight: bold;
+        margin-top: 15px;
+}
+
+
+
+@media (max-width: 767px){
+
+        .main{
+                display: flex;
+                justify-content:center;
+                align-items: center;
+                margin-top: 5px;
+                padding-top: 5px;
+        }
+        
+        .card {
+                width: 36rem;
+        }
+        
+        .card-body .img-div{
+                margin-bottom: 4px;
+                text-align: center;
+        
+        }
+        
+        .card-body .img-div img {
+                height: 100px;
+                width: 250px;
+        }
+        
+        form label{
+                font-weight: bold;
+        }
+        form
+        .position-relative{
+                position: relative;
+        }
+         
+        
+        form .position-relative .position-absolute {
+                cursor: pointer;
+                right: 10px;
+                top: 37px;
+        }
+        form .forgot-password{
+                text-align: center;
+                margin-top: 3px;
+        }
+        
+        form .forgot-password a {
+                text-decoration: none;
+                color: #007bff;
+                cursor: pointer;
+                padding: 2px;
+        
+        }
+        
+        form .sign-up-text{
+                text-align: center;
+                margin-top: 3px;
+        }
+        
+        form .sign-up-text a {
+                text-decoration: none;
+                color: #007bff;
+                cursor: pointer;
+                padding: 2px;
+        }
+
+}
+
+
+
+@media (min-width: 768px) and (max-width: 1024px){
+        .main{
+                display: flex;
+                justify-content:center;
+                align-items: center;
+                margin-top: 5px;
+                padding-top: 5px;
+        }
+        
+        .card {
+                width: 36rem;
+        }
+        
+        .card-body .img-div{
+                margin-bottom: 4px;
+                text-align: center;
+        
+        }
+        
+        .card-body .img-div img {
+                height: 100px;
+                width: 250px;
+        }
+        
+        form label{
+                font-weight: bold;
+        }
+        form
+        .position-relative{
+                position: relative;
+        }
+         
+        
+        form .position-relative .position-absolute {
+                cursor: pointer;
+                right: 10px;
+                top: 37px;
+        }
+        
+        
+        form .button-main {
+                text-align: center;
+                margin-top: 10px;
+        }
+        
+        
+        form .button-main .btn-sub{
+                background-color: #007bff;
+                border-radius: 4px;
+                color: white;
+                border: none;
+                outline: none;
+        
+        }
+        form .forgot-password{
+                text-align: center;
+                margin-top: 3px;
+        }
+        
+        form .forgot-password a {
+                text-decoration: none;
+                color: #007bff;
+                cursor: pointer;
+                padding: 2px;
+        
+        }
+        
+        form .sign-up-text{
+                text-align: center;
+                margin-top: 3px;
+        }
+        
+        form .sign-up-text a {
+                text-decoration: none;
+                color: #007bff;
+                cursor: pointer;
+                padding: 2px;
+        }
+}

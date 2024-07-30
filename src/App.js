@@ -6,9 +6,14 @@ import SignUp from "./Components/SignUp/Signup";
 import Login from "./Components/SignIn/Login";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import { AuthProvider }  from "./Components/Context/AuthContext";
+
 import AdminnLogin from "../src/Admin/Components/Login/Login";
 import AdminDashboard from "../src/Admin/Components/Dashboard/Dashboard";
 import Sidebar from "../src/Admin/Components/Sidebar/Sidebar";
+
+import ForgotPassword from "./Components/SignIn/ForgotPassword";
+import VerifyOTP from './Components/SignIn/VerifyOTP';
+
 
 const queryClient = new QueryClient();
 
@@ -22,9 +27,14 @@ function App() {
       <Route path="/" element={<Login />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/dashboard" element={<Dashboard />} />
+
         <Route path="/admindashboard" element={<AdminDashboard />} />
         <Route path="/admin" element={<AdminnLogin />} />
         <Route path="/sidebar" element={<Sidebar />} />
+
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/verify-otp" element={<VerifyOTP />} />
+
       </Routes>
     </BrowserRouter>
     </AuthProvider>
