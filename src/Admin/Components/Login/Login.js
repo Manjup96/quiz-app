@@ -1,17 +1,16 @@
-
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import { auth, db } from '../Firebase/FirebaseConfig';
-import { useAuth } from '../Context/AuthContext';
-import logo from '../Img/main-logo.png';
-import './Login.css';
+import { faEye, faEyeSlash, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { auth, db } from '../../../Components/Firebase/FirebaseConfig';
+import { useAuth } from '../../../Components/Context/AuthContext';
+import "../../../Styles/Components/AdminLogin.css";
+import logo from '../../../Admin/Components/Img/FoELogo_105x57 (1).png'; // Corrected path
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login } = useAuth(); 
+  const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -25,31 +24,23 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
-    // Add condition to prevent login for specific email
-    if (email === 'sai@gmail.com') {
-      setError('This email is not allowed to log in.');
-      setIsSubmitting(false);
-      return;
-    }
+    setError(''); // Reset error message
 
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
       // Fetch additional user data from Firestore
-      const userDoc = await db.collection('users').doc(user.uid).get();
+      const userDoc = await db.collection('admin').doc(user.uid).get();
       const userData = userDoc.data();
 
       // Ensure name is part of the user object
-      login({
-        uid: user.uid,
-        email: user.email,
-        name: userData?.name || 'Guest', // Default to 'Guest' if name is not available
-        // Add any other user data you need
-      });
-
-      navigate('/dashboard');
+      if (userData && userData.email === 'sai@gmail.com') {
+        login(userData); // Save userData in context and sessionStorage
+        navigate('/admindashboard');
+      } else {
+        setError('Invalid email or password. Please try again.');
+      }
     } catch (err) {
       setError('Invalid email or password. Please try again.');
     } finally {
@@ -60,31 +51,32 @@ const Login = () => {
   const canSubmit = email.trim() !== '' && password.trim() !== '';
 
   return (
-    <div className="main_login ">
-      <div className="login_card" >
-        <div className="login-card-body">
-          <div className="login-img-div">
-            <img src={logo} alt="Logo"/>
+    <div className="admin-login">
+      <div className="admin-login-card">
+        <div className="adminlogin-card-body">
+          <div className="adminlogin-img-div">
+            <img src={logo} alt="Logo" className="company-logo" />
           </div>
-          <form  className='login-form' onSubmit={handleLogin}>
-            <div className="login-position-relative">
+          <h2 className='admin-heading'>Admin Login</h2>
+          <form className='admin-form' onSubmit={handleLogin}>
+            <div className="mb-3 admin-position-relative">
               <input
                 type="email"
-                id="login_email"
-                placeholder="Enter Your Email"
+                className="adminlogin-mail"
+                placeholder="Email ID"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
-             <span className="info-icon" data-tooltip="The email that you used during the sign up process.">
+              <span className="info-icon" data-tooltip="The email that you used during the sign up process.">
                 <FontAwesomeIcon icon={faInfoCircle} />
-              </span> 
+              </span>
             </div>
-            <div className="login-position-relative">
+            <div className="mb-3 admin-position-relative">
               <input
                 type={showPassword ? 'text' : 'password'}
-                id="login_password"
-                placeholder="Enter Your Password"
+                className="adminlogin-password"
+                placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -94,32 +86,17 @@ const Login = () => {
               </span>
             </div>
             {error && <div className="text-danger text-center">{error}</div>}
-            <div className="login-button-main">
+            <div className="admin-login-div">
               <button
                 type="submit"
-                className="login-btn-sub"
+                className="admin-login-button"
                 disabled={!canSubmit || isSubmitting}
               >
                 {isSubmitting ? 'Logging in...' : 'Login'}
               </button>
             </div>
-            <div className="login-forgot-password">
-              <a
-                onClick={() => navigate('/forgot-password')}
-              >
-                Forgot Password?
-              </a>
-            </div>
-            <div className="login-sign-up-text">
-              <p>
-                <a
-                  onClick={() => navigate('/signUp')}
-                >
-                  &nbsp;SignUp
-                </a>
-              </p>
-            </div>
           </form>
+         
         </div>
       </div>
     </div>

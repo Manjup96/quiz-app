@@ -1,0 +1,32 @@
+.admindashboard-heading {
+    text-align: center;
+}
+
+.admin-welcome {
+    text-align: center;
+}
+
+@media (max-width: 767px){
+
+.admindashboard-heading {
+    text-align: center;
+    margin-right: 500px;
+}
+.admin-welcome {
+    text-align: center;
+    margin-right: 500px;
+}
+
+
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .admindashboard-heading {
+        text-align: center;
+        margin-left: -340px;
+    }
+    .admin-welcome {
+        text-align: center;
+        margin-left: -340px;
+    }
+}

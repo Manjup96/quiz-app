@@ -316,6 +316,10 @@ const SignUp = () => {
       const userCredential = await auth.createUserWithEmailAndPassword(email, password);
       const user = userCredential.user;
 
+ 
+     
+      
+
       await db.collection('users').doc(user.uid).set({
         name,
         email,
@@ -323,6 +327,10 @@ const SignUp = () => {
         password,
         createdAt: new Date(),
       });
+
+
+    
+
 
       setName('');
       setEmail('');
