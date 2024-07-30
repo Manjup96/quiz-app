@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { db, auth } from '../Firebase/FirebaseConfig';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import logo from "../Img/Company_logo.png" ; 
+import { auth, db } from '../../../Components/Firebase/FirebaseConfig';
+import { useAuth } from '../../../Components/Context/AuthContext';
+import logo from '../../../Components/Img/Company_logo.png'; // Corrected path
 
-const SignUp = () => {
+const Login = () => {
   const navigate = useNavigate();
-  const [name, setName] = useState('');
+  const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -18,41 +20,34 @@ const SignUp = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError(''); // Reset error message
 
     try {
-
-      const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-     
-      await db.collection('user').doc(user.uid).set({
-        name,
-        email,
-        password,
-        createdAt: new Date(),
-      });
+      // Fetch additional user data from Firestore
+      const userDoc = await db.collection('admin').doc(user.uid).get();
+      const userData = userDoc.data();
 
-    
-
-      setName('');
-      setEmail('');
-      setPassword('');
-      setError('');
-      setIsSubmitting(false);
-
-
-      alert('You have Registered successfully!');
-      navigate('/'); 
+      // Ensure name is part of the user object
+      if (userData && userData.email === 'sai@gmail.com') {
+        login(userData); // Save userData in context and sessionStorage
+        navigate('/Admindashboard');
+      } else {
+        setError('Invalid email or password. Please try again.');
+      }
     } catch (err) {
-      setError(err.message);
+      setError('Invalid email or password. Please try again.');
+    } finally {
       setIsSubmitting(false);
     }
   };
 
-  const canSubmit = name.trim() !== '' && email.trim() !== '' && password.trim() !== '';
+  const canSubmit = email.trim() !== '' && password.trim() !== '';
 
   return (
     <div className="d-flex justify-content-center align-items-center mt-5 pt-5">
@@ -60,21 +55,9 @@ const SignUp = () => {
         <div className="card-body">
           <div className="text-center mb-4">
             <img src={logo} alt="Logo" className="mb-3" style={{ width: '250px', height: '100px' }} />
-            <h3>Register</h3>
+            <h3>Login</h3>
           </div>
-          <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <label htmlFor="name" style={{ fontWeight: 'bold' }}>Name</label>
-              <input
-                type="text"
-                className="form-control mt-1"
-                id="name"
-                placeholder="Enter Your Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </div>
+          <form onSubmit={handleLogin}>
             <div className="mb-3">
               <label htmlFor="email" style={{ fontWeight: 'bold' }}>Email</label>
               <input
@@ -112,9 +95,21 @@ const SignUp = () => {
                 className="btn btn-primary"
                 disabled={!canSubmit || isSubmitting}
               >
-                {isSubmitting ? 'Registering...' : 'Register'}
+                {isSubmitting ? 'Logging in...' : 'Login'}
               </button>
             </div>
+            {/* <div className="text-center mt-3">
+              <p>
+                Don't have an account?&nbsp;
+                <a
+                  onClick={() => navigate('/signUp')}
+                  style={{ textDecoration: 'none', color: '#007bff', cursor: 'pointer' }}
+                >
+                  Register
+                </a>
+                &nbsp;here
+              </p>
+            </div> */}
           </form>
         </div>
       </div>
@@ -122,4 +117,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Login;

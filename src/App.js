@@ -6,6 +6,9 @@ import SignUp from "./Components/SignUp/Signup";
 import Login from "./Components/SignIn/Login";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import { AuthProvider }  from "./Components/Context/AuthContext";
+import AdminnLogin from "../src/Admin/Components/Login/Login";
+import AdminDashboard from "../src/Admin/Components/Dashboard/Dashboard";
+import Sidebar from "../src/Admin/Components/Sidebar/Sidebar";
 
 const queryClient = new QueryClient();
 
@@ -19,13 +22,12 @@ function App() {
       <Route path="/" element={<Login />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/admindashboard" element={<AdminDashboard />} />
+        <Route path="/admin" element={<AdminnLogin />} />
+        <Route path="/sidebar" element={<Sidebar />} />
       </Routes>
     </BrowserRouter>
     </AuthProvider>
-
-
-   
-
     </QueryClientProvider>
   );
 }

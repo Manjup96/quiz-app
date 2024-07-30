@@ -24,6 +24,13 @@ const Login = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    // Add condition to prevent login for specific email
+    if (email === 'sai@gmail.com') {
+      setError('This email is not allowed to log in.');
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
