@@ -289,7 +289,7 @@ import { db, auth } from '../Firebase/FirebaseConfig';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import logo from "../Img/Company_logo.png"; 
+import logo from "../Img/main-logo.png"; 
 import './SignUp.css';
 
 
@@ -342,26 +342,13 @@ const SignUp = () => {
 
   return (
     <div className="main">
-      <div className="card">
-        <div className="card-body">
+      <div className="signup-card">
+        <div className="signup-card-body">
           <div className="img-div">
             <img src={logo} alt="Logo" />
           </div>
-          <form onSubmit={handleSubmit}>
-            <div>
-              {/* <label htmlFor="name" >Name</label> */}
-              <input
-                type="text"
-                className="form-control mt-1"
-                id="name"
-                placeholder="Enter Your Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </div>
+          <form  className='signup-form' onSubmit={handleSubmit}>
             <div >
-              {/* <label htmlFor="email" >Email</label> */}
               <input
                 type="email"
                 className="form-control mt-1"
@@ -372,20 +359,7 @@ const SignUp = () => {
                 required
               />
             </div>
-            <div >
-              {/* <label htmlFor="mobile">Mobile Number</label> */}
-              <input
-                type="tel"
-                className="form-control mt-1"
-                id="mobile"
-                placeholder="Enter Your Mobile Number"
-                value={mobile}
-                onChange={(e) => setMobile(e.target.value)}
-                required
-              />
-            </div>
             <div className=' position-relative'>
-              {/* <label htmlFor="password">Password</label> */}
               <input
                 type={showPassword ? 'text' : 'password'}
                 className="form-control mt-1"
@@ -395,11 +369,7 @@ const SignUp = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              <FontAwesomeIcon
-                icon={showPassword ? faEyeSlash : faEye}
-                onClick={togglePasswordVisibility}
-                className="position-absolute"
-              />
+             
             </div>
             {error && <div className="text-danger text-center">{error}</div>}
             <div className=" button-main">

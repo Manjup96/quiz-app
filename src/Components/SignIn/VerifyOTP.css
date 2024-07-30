@@ -1,4 +1,4 @@
-.main-forgot-password {
+.main-verify {
         display: flex;
         justify-content:center;
         align-items: center;
@@ -6,27 +6,27 @@
         padding-top: 5px;
 }
 
-.forgot-password-card {
+.verify-card {
         width: 28rem;
         border-radius: 20px;
         box-sizing: border-box;
 }
 
 
-.forgot-password-card-body .forgot-password-img-div{
+.verify-card-body .verify-img-div{
         margin-bottom: 50px;
         text-align: center;
 
 }
 
-.forgot-password-card-body .forgot-password-img-div img {
+.verify-card-body .verify-img-div img {
         height: 100px;
         width: 250px;
 }
 
-.forgot-password-form #forgot-phoneNumber{
+.verifyotp-form #verificationCode{
 display: block;
-width: 73%;
+width: 55%;
 padding: .375rem .75rem;
 font-size: 1rem;
 font-weight: 400;
@@ -39,25 +39,24 @@ border: var(--bs-border-width) solid var(--bs-border-color);
 border-radius: 10px;
 transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 margin-top: 1.25rem !important;
-margin-left: 55px;
+margin-left: 127px;
 height: 50px;
 
 }
 
-.forgot-password-form .div-forgot-button{
+.verifyotp-form .div-verify-button{
 text-align: center;
 margin-top: 10px;
 }
 
-
-.forgot-password-form
-.div-forgot-button .forgot-button{
+.verifyotp-form
+.div-verify-button .verify-button{
         background-color:rgb(14, 158, 14);
         color: white;
         border: none;
         outline: none;
         font-weight: bold;
-        width: 71%;
+        width: 51%;
         height: 44px;
         border-radius: 25px;
         margin-top: 20px;

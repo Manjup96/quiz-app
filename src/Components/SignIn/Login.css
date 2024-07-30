@@ -14,17 +14,17 @@
 
 
 .login-card-body .login-img-div{
-        margin-bottom: 4px;
+        margin-bottom: 50px;
         text-align: center;
 
 }
 
 .login-card-body .login-img-div img {
-        height: 100px;
-        width: 250px;
+        height: 83px;
+        width: 157px;
 }
 
-form  #login_email, #login_password {
+.login-form #login_email, #login_password {
         display: block;
         width: 73%;
         padding: .375rem .75rem;
@@ -44,29 +44,19 @@ form  #login_email, #login_password {
 }
 
 
-form
+.login-form
 .login-position-relative{
         position: relative !important;
 }
  
 
-form .login-position-relative .login-position-absolute {
-        cursor: pointer;
-        top: 16px;
-        right: 72px;
-    
-}
-
-
-
-
-form .login-button-main {
+.login-form .login-button-main {
         text-align: center;
         margin-top: 10px;
 }
 
 
-form .login-button-main .login-btn-sub{
+.login-form .login-button-main .login-btn-sub{
         background-color:rgb(14, 158, 14);
         color: white;
         border: none;
@@ -76,34 +66,254 @@ form .login-button-main .login-btn-sub{
         height: 44px;
         border-radius: 25px;
         margin-top: 20px;
+        position: relative;
+        box-shadow: 0 15px 15px -15px rgba(0, 0, 0, 0.3); /* half shadow downward */
 
 }
 
 
 
-form .login-forgot-password{
+.login-form .login-forgot-password{
         text-align: center;
         margin-top: 20px;
         font-weight: bold;
+        color:rgb(14, 158, 14)
 }
 
-form .login-forgot-password a {
+.login-form .login-forgot-password a {
         text-decoration: none;
-        color: #007bff;
         cursor: pointer;
         padding: 2px;
 
 }
 
-form .login-sign-up-text{
+.login-form .login-sign-up-text{
         text-align: center;
         margin-top: 15px;
+        color:rgb(14, 158, 14)
 }
 
-form .login-sign-up-text a {
+.login-form .login-sign-up-text a {
         text-decoration: none;
-        color: #007bff;
         cursor: pointer;
         font-weight: bold;
         margin-top: 15px;
+}
+
+
+
+/* mobile view */
+
+
+@media only screen and (max-width: 767px){
+
+        .main_login {
+                display: flex;
+                justify-content:center;
+                align-items: center;
+                margin-top: 30px;
+                padding-top: 5px;
+        }
+        
+        .login_card {
+                width: 28rem;
+                border-radius: 20px;
+                box-sizing: border-box;
+        }
+        
+        
+        .login-card-body .login-img-div{
+                margin-bottom: 50px;
+                text-align: center;
+        
+        }
+        
+        .login-card-body .login-img-div img {
+                height: 89px;
+                width: 204px
+        }
+        
+        .login-form #login_email, #login_password {
+                display: block;
+                width: 73%;
+                padding: .375rem .75rem;
+                font-size: 1rem;
+                font-weight: 400;
+                line-height: 1.5;
+                color: var(--bs-body-color);
+                appearance: none;
+                background-color: var(--bs-body-bg);
+                background-clip: padding-box;
+                border: var(--bs-border-width) solid var(--bs-border-color);
+                border-radius: 10px;
+                transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+                margin-top: 1.25rem !important;
+                margin-left: 55px;
+                height: 50px;
+        }
+        
+        
+        .login-form
+        .login-position-relative{
+                position: relative !important;
+        }
+         
+        
+        .login-form .login-button-main {
+                text-align: center;
+                margin-top: 10px;
+        }
+        
+        
+        .login-form .login-button-main .login-btn-sub{
+                background-color:rgb(14, 158, 14);
+                color: white;
+                border: none;
+                outline: none;
+                font-weight: bold;
+                width: 71%;
+                height: 44px;
+                border-radius: 25px;
+                margin-top: 20px;
+        
+        }
+        
+        
+        
+        .login-form .login-forgot-password{
+                text-align: center;
+                margin-top: 20px;
+                font-weight: bold;
+                color:rgb(14, 158, 14)
+        }
+        
+        .login-form .login-forgot-password a {
+                text-decoration: none;
+                cursor: pointer;
+                padding: 2px;
+        
+        }
+        
+        .login-form .login-sign-up-text{
+                text-align: center;
+                margin-top: 15px;
+                color:rgb(14, 158, 14)
+        }
+        
+        .login-form .login-sign-up-text a {
+                text-decoration: none;
+                cursor: pointer;
+                font-weight: bold;
+                margin-top: 15px;
+        }
+
+}
+
+
+
+/* tablet view */
+
+
+@media only screen and (min-width: 768px) and (max-width: 1024px){
+        .main_login {
+                display: flex;
+                justify-content:center;
+                align-items: center;
+                margin-top: 30px;
+                padding-top: 5px;
+        }
+        
+        .login_card {
+                width: 28rem;
+                border-radius: 20px;
+                box-sizing: border-box;
+        }
+        
+        
+        .login-card-body .login-img-div{
+                margin-bottom: 50px;
+                text-align: center;
+        
+        }
+        
+        .login-card-body .login-img-div img {
+                height: 83px;
+                width: 157px;
+        }
+        
+        .login-form  #login_email, #login_password {
+                display: block;
+                width: 73%;
+                padding: .375rem .75rem;
+                font-size: 1rem;
+                font-weight: 400;
+                line-height: 1.5;
+                color: var(--bs-body-color);
+                appearance: none;
+                background-color: var(--bs-body-bg);
+                background-clip: padding-box;
+                border: var(--bs-border-width) solid var(--bs-border-color);
+                border-radius: 10px;
+                transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+                margin-top: 1.25rem !important;
+                margin-left: 55px;
+                height: 50px;
+        }
+        
+        
+        .login-form
+        .login-position-relative{
+                position: relative !important;
+        }
+         
+        
+        .login-form .login-button-main {
+                text-align: center;
+                margin-top: 10px;
+        }
+        
+        
+        .login-form .login-button-main .login-btn-sub{
+                background-color:rgb(14, 158, 14);
+                color: white;
+                border: none;
+                outline: none;
+                font-weight: bold;
+                width: 71%;
+                height: 44px;
+                border-radius: 25px;
+                margin-top: 20px;
+                position: relative;
+                box-shadow: 0 15px 15px -15px rgba(0, 0, 0, 0.3); /* half shadow downward */
+        
+        }
+        
+        
+        
+        .login-form .login-forgot-password{
+                text-align: center;
+                margin-top: 20px;
+                font-weight: bold;
+                color:rgb(14, 158, 14)
+        }
+        
+        .login-form .login-forgot-password a {
+                text-decoration: none;
+                cursor: pointer;
+                padding: 2px;
+        
+        }
+        
+        .login-form .login-sign-up-text{
+                text-align: center;
+                margin-top: 15px;
+                color:rgb(14, 158, 14)
+        }
+        
+        .login-form .login-sign-up-text a {
+                text-decoration: none;
+                cursor: pointer;
+                font-weight: bold;
+                margin-top: 15px;
+        }
 }

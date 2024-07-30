@@ -220,7 +220,8 @@ import React, { useState } from 'react';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../Firebase/FirebaseConfig'; // Ensure Firebase is correctly initialized
-import logo from '../Img/Company_logo.png';
+import logo from '../Img/main-logo.png';
+import './ForgotPassword.css';
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -272,15 +273,13 @@ const ForgotPassword = () => {
         <div className="forgot-password-card-body">
           <div className="forgot-password-img-div">
             <img src={logo} alt="Logo" />
-            <h3>Forgot Password</h3>
           </div>
-          <form onSubmit={handleSendCode}>
+          <form className='forgot-password-form' onSubmit={handleSendCode}>
             <div className="mb-3">
-              <label htmlFor="phoneNumber" style={{ fontWeight: 'bold' }}>Phone Number</label>
               <input
                 type="tel"
                 className="form-control mt-1"
-                id="phoneNumber"
+                id="forgot-phoneNumber"
                 placeholder="Enter Your Phone Number"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
@@ -290,13 +289,13 @@ const ForgotPassword = () => {
             <div id="recaptcha-container"></div>
             {error && <div className="text-danger text-center">{error}</div>}
             {message && <div className="text-success text-center">{message}</div>}
-            <div className="text-center">
+            <div className="div-forgot-button">
               <button
                 type="submit"
-                className="btn btn-primary"
+                className="forgot-button"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? 'Sending...' : 'Send Code'}
+                {isSubmitting ? 'Sending...' : 'Submit'}
               </button>
             </div>
           </form>
