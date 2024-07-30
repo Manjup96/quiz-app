@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faEyeSlash, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { auth, db } from '../../../Components/Firebase/FirebaseConfig';
 import { useAuth } from '../../../Components/Context/AuthContext';
-import logo from '../../../Components/Img/Company_logo.png'; // Corrected path
+import "../../../Styles/Components/AdminLogin.css";
+import logo from '../../../Admin/Components/Img/FoELogo_105x57 (1).png'; // Corrected path
 
 const Login = () => {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ const Login = () => {
       // Ensure name is part of the user object
       if (userData && userData.email === 'sai@gmail.com') {
         login(userData); // Save userData in context and sessionStorage
-        navigate('/Admindashboard');
+        navigate('/admindashboard');
       } else {
         setError('Invalid email or password. Please try again.');
       }
@@ -50,67 +51,52 @@ const Login = () => {
   const canSubmit = email.trim() !== '' && password.trim() !== '';
 
   return (
-    <div className="d-flex justify-content-center align-items-center mt-5 pt-5">
-      <div className="card" style={{ width: '36rem' }}>
-        <div className="card-body">
-          <div className="text-center mb-4">
-            <img src={logo} alt="Logo" className="mb-3" style={{ width: '250px', height: '100px' }} />
-            <h3>Login</h3>
+    <div className="admin-login">
+      <div className="admin-login-card">
+        <div className="adminlogin-card-body">
+          <div className="adminlogin-img-div">
+            <img src={logo} alt="Logo" className="company-logo" />
           </div>
-          <form onSubmit={handleLogin}>
-            <div className="mb-3">
-              <label htmlFor="email" style={{ fontWeight: 'bold' }}>Email</label>
+          <h2 className='admin-heading'>Admin Login</h2>
+          <form className='admin-form' onSubmit={handleLogin}>
+            <div className="mb-3 admin-position-relative">
               <input
                 type="email"
-                className="form-control mt-1"
-                id="email"
-                placeholder="Enter Your Email"
+                className="adminlogin-mail"
+                placeholder="Email ID"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
+              <span className="info-icon" data-tooltip="The email that you used during the sign up process.">
+                <FontAwesomeIcon icon={faInfoCircle} />
+              </span>
             </div>
-            <div className="mb-3 position-relative">
-              <label htmlFor="password" style={{ fontWeight: 'bold' }}>Password</label>
+            <div className="mb-3 admin-position-relative">
               <input
                 type={showPassword ? 'text' : 'password'}
-                className="form-control mt-1"
-                id="password"
-                placeholder="Enter Your Password"
+                className="adminlogin-password"
+                placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              <FontAwesomeIcon
-                icon={showPassword ? faEyeSlash : faEye}
-                onClick={togglePasswordVisibility}
-                className="position-absolute"
-                style={{ right: '10px', top: '37px', cursor: 'pointer' }}
-              />
+              <span className="info-icon" data-tooltip="Your password must be at least 8 characters long.">
+                <FontAwesomeIcon icon={faInfoCircle} />
+              </span>
             </div>
             {error && <div className="text-danger text-center">{error}</div>}
-            <div className="text-center">
+            <div className="admin-login-div">
               <button
                 type="submit"
-                className="btn btn-primary"
+                className="admin-login-button"
                 disabled={!canSubmit || isSubmitting}
               >
                 {isSubmitting ? 'Logging in...' : 'Login'}
               </button>
             </div>
-            {/* <div className="text-center mt-3">
-              <p>
-                Don't have an account?&nbsp;
-                <a
-                  onClick={() => navigate('/signUp')}
-                  style={{ textDecoration: 'none', color: '#007bff', cursor: 'pointer' }}
-                >
-                  Register
-                </a>
-                &nbsp;here
-              </p>
-            </div> */}
           </form>
+         
         </div>
       </div>
     </div>
