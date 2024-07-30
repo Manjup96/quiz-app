@@ -5,11 +5,11 @@
         margin-top: 30px;
         padding-top: 5px;
 }
-
+/* 
 .card {
         width: 28rem;
         border-radius: 20px;
-    }
+    } */
 
 .card-body .img-div{
         margin-bottom: 4px;
@@ -25,7 +25,7 @@
 form label{
         font-weight: bold;
 }
-form #name, #email, #mobile, #password {
+/* form #name, #email, #mobile, #password {
         display: block;
         width: 73%;
         padding: .375rem .75rem;
@@ -42,7 +42,7 @@ form #name, #email, #mobile, #password {
         margin-top: 1.25rem !important;
         margin-left: 55px;
         height: 50px;
-}
+} */
 
 form
 .position-relative{
@@ -115,9 +115,9 @@ form .sign-up-text a {
                 padding-top: 5px;
         }
         
-        .card {
+        /* .card {
                 width: 36rem;
-        }
+        } */
         
         .card-body .img-div{
                 margin-bottom: 4px;
