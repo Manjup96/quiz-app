@@ -15,6 +15,7 @@ import ForgotPassword from "./Components/SignIn/ForgotPassword";
 import VerifyOTP from './Components/SignIn/VerifyOTP';
 import User from "../src/Admin/Components/User/User";
 import ManageUsers from "../src/Admin/Components/ManageUsers/ManageUsers"
+import Score from "../src/Admin/Components/Scores/Scores"
 
 const queryClient = new QueryClient();
 
@@ -36,7 +37,8 @@ function App() {
         <Route path="/user" element={<User />} />
         <Route path="/manageUsers" element={<ManageUsers />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/verify-otp" element={<VerifyOTP />} />
+       
+        <Route path="/scores" element={<Score />} />
 
       </Routes>
     </BrowserRouter>
