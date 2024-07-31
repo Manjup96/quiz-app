@@ -4,7 +4,7 @@ import { auth, db } from '../../../Components/Firebase/FirebaseConfig';
 import Sidebar from '../../../Admin/Components/Sidebar/Sidebar';
 import Header from '../../../Admin/Components/Header/Header';
 import { useAuth } from '../../../Components/Context/AuthContext';
-import './ManageUsers.css'; // Add this line to include the CSS file
+import './ManageUsers.css'; // Ensure you create and include this CSS file
 
 const ManageUsers = () => {
   const { user } = useAuth();
@@ -50,35 +50,33 @@ const ManageUsers = () => {
   return (
     <div>
       <Header />
-      <Sidebar />
-     
-
-      <div className="registration-container">
-        <h2 className='registration-heading'>Registration</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Name:</label>
-            <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
-          </div>
-          <div className="form-group">
-            <label>Email:</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-          </div>
-          <div className="form-group">
-            <label>Password:</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-          </div>
-          <div className="form-group">
-            <label>Mobile:</label>
-            <input type="text" value={mobile} onChange={(e) => setMobile(e.target.value)} required />
-          </div>
-          {error && <p className="error-message">{error}</p>}
-          <button type="submit">Register</button>
-        </form>
+      <div className="manage-users-container">
+        <Sidebar />
+        <div className="form-container">
+          <h2>Registration</h2>
+          <form onSubmit={handleSubmit} className="registration-form">
+            <div className="form-group">
+              <label>Name:</label>
+              <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+            </div>
+            <div className="form-group">
+              <label>Email:</label>
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            </div>
+            <div className="form-group">
+              <label>Password:</label>
+              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            </div>
+            <div className="form-group">
+              <label>Mobile:</label>
+              <input type="text" value={mobile} onChange={(e) => setMobile(e.target.value)} required />
+            </div>
+            {error && <p className="error-message">{error}</p>}
+            <button type="submit">Register</button>
+          </form>
+        </div>
       </div>
-      </div>
-      
-    
+    </div>
   );
 };
 
