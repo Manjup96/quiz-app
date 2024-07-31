@@ -87,9 +87,9 @@ const SignUp = () => {
               <span className="info-icon" data-tooltip="Your password must be at least 8 characters long.">
                 <FontAwesomeIcon icon={faInfoCircle} />
               </span>
-              <span className="toggle-password" onClick={togglePasswordVisibility}>
+              {/* <span className="toggle-password" onClick={togglePasswordVisibility}>
                 <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-              </span>
+              </span> */}
             </div>
             <div className='signup_position_relative'>
               <input
