@@ -27,7 +27,7 @@
         width: 157px;
         margin-top: 20px;
 }
-.signup-form #signup_email, #signup_password {
+.signup-form #signup_email, #signup_mobile, #signup_password {
         display: block;
         width: 73%;
         padding: .375rem .75rem;

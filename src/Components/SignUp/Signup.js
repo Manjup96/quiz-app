@@ -10,7 +10,6 @@ import './SignUp.css';
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [mobile, setMobile] = useState('');
@@ -32,13 +31,12 @@ const SignUp = () => {
       const user = userCredential.user;
 
       await db.collection('users').doc(user.uid).set({
-        name,
         email,
         mobile,
+        password,
         createdAt: new Date(),
       });
 
-      setName('');
       setEmail('');
       setPassword('');
       setMobile('');
@@ -54,7 +52,7 @@ const SignUp = () => {
     }
   };
 
-  const canSubmit = name.trim() !== '' && email.trim() !== '' && password.trim() !== '' && mobile.trim() !== '';
+  const canSubmit = email.trim() !== '' && password.trim() !== '' && mobile.trim() !== '';
 
   return (
     <div className="signup-main">
@@ -64,19 +62,6 @@ const SignUp = () => {
             <img src={logo} alt="Logo" />
           </div>
           <form className='signup-form' onSubmit={handleSubmit}>
-            <div className='signup_position_relative'>
-              <input
-                type="text"
-                id="signup_name"
-                placeholder="Enter Your Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-              <span className="info-icon" data-tooltip="Your full name.">
-                <FontAwesomeIcon icon={faInfoCircle} />
-              </span>
-            </div>
             <div className='signup_position_relative'>
               <input
                 type="email"

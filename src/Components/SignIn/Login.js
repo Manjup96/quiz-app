@@ -29,7 +29,7 @@ const Login = () => {
     setIsSubmitting(true);
 
     
-    if (email === 'sai@gmail.com') {
+    if (email === 'admin@gmail.com') {
       setError('This email is not allowed to log in.');
       setIsSubmitting(false);
       return;
