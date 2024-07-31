@@ -7,7 +7,7 @@ const Website = () => {
     console.log("User data:", user);
 
     // Default URL with a placeholder for the user's name
-    const defaultUrl = 'http://127.0.0.1:5500/African-Elephants.html?name=';
+    const defaultUrl = 'http://127.0.0.1:5500/index.html?name=';
 
     // Use the user's name if available, otherwise fallback to 'user'
     const userName = user?.uid || 'user';
@@ -24,7 +24,7 @@ const Website = () => {
             src={url}
             title="Embedded Content"
             width="100%"
-            height="700px"
+            height="725px"
             style={{ border: 'none' }}
         />
     );
