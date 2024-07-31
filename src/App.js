@@ -10,10 +10,10 @@ import { AuthProvider }  from "./Components/Context/AuthContext";
 import AdminnLogin from "../src/Admin/Components/Login/Login";
 import AdminDashboard from "../src/Admin/Components/Dashboard/Dashboard";
 import Sidebar from "../src/Admin/Components/Sidebar/Sidebar";
-
+import UserSignup from "../src/Admin/Components/User/UserSignup"
 import ForgotPassword from "./Components/SignIn/ForgotPassword";
 import VerifyOTP from './Components/SignIn/VerifyOTP';
-
+import User from "../src/Admin/Components/User/User"
 
 const queryClient = new QueryClient();
 
@@ -31,7 +31,8 @@ function App() {
         <Route path="/admindashboard" element={<AdminDashboard />} />
         <Route path="/admin" element={<AdminnLogin />} />
         <Route path="/sidebar" element={<Sidebar />} />
-
+        <Route path="/userSignup" element={<UserSignup />} />
+        <Route path="/user" element={<User />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/verify-otp" element={<VerifyOTP />} />
 
