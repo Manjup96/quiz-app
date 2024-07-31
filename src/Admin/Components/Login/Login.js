@@ -35,7 +35,7 @@ const Login = () => {
       const userData = userDoc.data();
 
       // Ensure name is part of the user object
-      if (userData && userData.email === 'sai@gmail.com') {
+      if (userData && userData.email === 'admin@gmail.com') {
         login(userData); // Save userData in context and sessionStorage
         navigate('/admindashboard');
       } else {
