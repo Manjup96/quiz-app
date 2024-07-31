@@ -17,6 +17,7 @@
   
   .sidebar.collapsed .link_text {
     display: none;
+    
   }
   
   .sidebar.collapsed .toggle-icon {
@@ -24,8 +25,9 @@
   }
   
   .sidebar .Title {
-    text-align: center;
+    text-align: left;
     padding: 20px 0;
+    margin-left: 10px;
   }
   
   .sidebar .nav .nav-item .nav-link {
@@ -52,6 +54,8 @@
   
   .sidebar .sidebar-toggle .toggle-icon {
     font-size: 1.5em;
+    margin-left: -20px;
+    margin-top: -102px;
   }
   
   .main-content {
@@ -60,4 +64,29 @@
     position: fixed;
     margin-left: 529px;
   }
+  
+  .sidebar-toggle {
+ 
+    cursor: pointer;
+    text-align: center;
+    font-size: 21px;
+    transition: all 0.3s ease;
+    margin-left: 72%;
+    width: 37px;
+    margin-bottom: 6px;
+    /* background-color: #f0f0f0; */
+    color: #0a98d8;
+  }
+  
+  .sidebar-toggle.collapsed {
+    /* background-color: #f0f0f0; Example different background color */
+    color: #0a98d8;
+    margin-left: 40%;
+    margin-top: 15px;
+    /* Add any other styles you want for the collapsed state */
+  }
+  
+    &.collapsed {
+      width: 50px; 
+    }
   

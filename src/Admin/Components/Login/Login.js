@@ -26,6 +26,10 @@ const Login = () => {
     setIsSubmitting(true);
     setError(''); // Reset error message
 
+    const togglePasswordVisibility = () => {
+      setShowPassword(!showPassword);
+};
+
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
@@ -81,6 +85,9 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+              <span className="login-eye-toggle-password" onClick={togglePasswordVisibility}>
+                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+    </span>
               <span className="info-icon" data-tooltip="Your password must be at least 8 characters long.">
                 <FontAwesomeIcon icon={faInfoCircle} />
               </span>

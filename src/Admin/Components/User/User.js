@@ -39,8 +39,12 @@ const User = () => {
               <th>ID</th>
               <th>Name</th>
               <th>Email</th>
+
               <th>Mobile</th>
               {/* Add more headers as needed */}
+
+            
+ 
             </tr>
           </thead>
           <tbody>
@@ -49,8 +53,12 @@ const User = () => {
                 <td>{index + 1}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
+
                 <td>{user.mobile}</td>
                 {/* Add more fields as needed */}
+
+         
+
               </tr>
             ))}
           </tbody>
