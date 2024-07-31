@@ -42,7 +42,7 @@ const Dashboard = () => {
       <Sidebar />
       <div className="main-content">
         <h1 className='admindashboard-heading'>Dashboard</h1>
-        <h2 className='admin-welcome'>Welcome, {user.name}!!!</h2>
+        <h2 className='admin-welcome'>Welcome Admin !!!</h2>
       </div>
     </div>
     </div>

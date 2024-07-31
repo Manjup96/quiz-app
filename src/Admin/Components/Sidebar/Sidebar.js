@@ -18,7 +18,7 @@ const Sidebar = () => {
     <div className={`sidebar ${collapsed ? 'collapsed' : ''}`}>
       {!collapsed && (
         <div className="Title">
-          <h4>Hi, Admin {user.username}</h4>
+          <h4>Hi, Admin </h4>
         </div>
       )}
       <div className="position-sticky">
@@ -33,9 +33,14 @@ const Sidebar = () => {
               {!collapsed && <span className="link_text">Dashboard</span>}
             </Link>
           </li>
+          <li className={`nav-item ${location.pathname === '/user' ? 'active' : ''}`}>
+            <Link className="nav-link" to="/user">
+              {!collapsed && <span className="link_text">Users</span>}
+            </Link>
+          </li>
           <li className={`nav-item ${location.pathname === '' ? 'active' : ''}`}>
             <Link className="nav-link" to="">
-              {!collapsed && <span className="link_text">Users</span>}
+              {!collapsed && <span className="link_text">Manage Users</span>}
             </Link>
           </li>
           <li className={`nav-item ${location.pathname === '' ? 'active' : ''}`}>
