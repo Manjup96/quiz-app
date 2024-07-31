@@ -43,6 +43,11 @@ const Sidebar = () => {
               {!collapsed && <span className="link_text">Manage Users</span>}
             </Link>
           </li>
+          <li className={`nav-item ${location.pathname === '/scores' ? 'active' : ''}`}>
+            <Link className="nav-link" to="/scores">
+              {!collapsed && <span className="link_text">Scores</span>}
+            </Link>
+          </li>
           <li className={`nav-item ${location.pathname === '' ? 'active' : ''}`}>
             <Link className="nav-link" to="">
               {!collapsed && <span className="link_text">Reports</span>}
