@@ -51,7 +51,7 @@ const ManageUsers = () => {
     <div>
       <Header />
       <Sidebar />
-      <div className='maindiv'>
+     
 
       <div className="registration-container">
         <h2 className='registration-heading'>Registration</h2>
@@ -77,7 +77,7 @@ const ManageUsers = () => {
         </form>
       </div>
       </div>
-      </div>
+      
     
   );
 };
