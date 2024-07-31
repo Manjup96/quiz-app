@@ -7,26 +7,34 @@ import { db } from '../../../Components/Firebase/FirebaseConfig';
 const Scores = () => {
   const { user } = useAuth();
   const [scores, setScores] = useState([]);
-  const [users, setUsers] = useState({}); // Store user names with ID as key
+  const [userNames, setUserNames] = useState({}); // Store user names with ID as key
 
   useEffect(() => {
     const fetchScoresDetails = async () => {
       try {
+        // Fetch scores data
         const scoresCollection = await db.collection('score').get();
         const scoresData = scoresCollection.docs.map(doc => ({
           id: doc.id,
           scores: doc.data().scores || []
         }));
-
         setScores(scoresData);
 
-        // Fetch user names
-        const userIds = scoresData.map(score => score.id); // Collect user IDs
+        // Collect unique user IDs
+        const userIds = Array.from(new Set(scoresData.map(score => score.id)));
+        console.log("User IDs to fetch:", userIds);
+
+        // Fetch user names based on user IDs
         const userPromises = userIds.map(id => 
-          db.collection('users').doc(id).get().then(userDoc => ({
-            id: id,
-            name: userDoc.exists ? userDoc.data().name : 'Unknown'
-          }))
+          db.collection('users').doc(id).get().then(userDoc => {
+            if (userDoc.exists) {
+              console.log(`Fetched user ${id}:`, userDoc.data());
+              return { id: id, name: userDoc.data().name };
+            } else {
+              console.warn(`No user found for ID ${id}`);
+              return { id: id, name: 'Unknown' };
+            }
+          })
         );
 
         const usersData = await Promise.all(userPromises);
@@ -35,10 +43,11 @@ const Scores = () => {
           return acc;
         }, {});
 
-        setUsers(usersMap);
+        console.log("User names map:", usersMap);
+        setUserNames(usersMap);
 
       } catch (error) {
-        console.error("Error in fetching Scores or Users:", error);
+        console.error("Error fetching Scores or Users:", error);
       }
     };
     
@@ -55,19 +64,22 @@ const Scores = () => {
           <thead>
             <tr>
               <th>Name</th>
+              <th>Activity</th>
               <th>Total Questions</th>
               <th>Correct Answers</th>
               <th>Time</th>
+             
             </tr>
           </thead>
           <tbody>
             {scores.flatMap(score => 
               score.scores.map((item, index) => (
                 <tr key={`${score.id}-${index}`}>
-                  <td>{users[score.id] || 'Unknown'}</td> {/* Display user name */}
+                  <td>{userNames[score.id] || 'Unknown'}</td> {/* Display user name */}
+                  <td>{item. activity || 'N/A'}</td>
                   <td>{item.totalQuestions || 'N/A'}</td>
                   <td>{item.correctAnswers || 'N/A'}</td>
-                  <td>{item.time || 'N/A'}</td>
+                  <td>{item.time || 'N/A'}</td> 
                 </tr>
               ))
             )}
