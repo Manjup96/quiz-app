@@ -13,6 +13,13 @@ import Sidebar from "../src/Admin/Components/Sidebar/Sidebar";
 
 import ForgotPassword from "./Components/SignIn/ForgotPassword";
 import VerifyOTP from './Components/SignIn/VerifyOTP';
+import Website from "./Components/Website/website";
+
+
+
+import User from "../src/Admin/Components/User/User";
+import ManageUsers from "../src/Admin/Components/ManageUsers/ManageUsers"
+import Score from "../src/Admin/Components/Scores/Scores"
 
 
 const queryClient = new QueryClient();
@@ -33,7 +40,8 @@ function App() {
         <Route path="/sidebar" element={<Sidebar />} />
 
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/verify-otp" element={<VerifyOTP />} />
+        <Route path="/website" element={<Website />} />
+        <Route path="/scores" element={<Score />} />
 
       </Routes>
     </BrowserRouter>

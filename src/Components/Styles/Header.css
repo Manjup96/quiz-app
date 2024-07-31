@@ -11,6 +11,7 @@
     width: 100%;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
     height: 57px;
+    position: fixed;
   }
   
   .header h2 {

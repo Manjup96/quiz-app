@@ -27,7 +27,7 @@
         width: 157px;
         margin-top: 20px;
 }
-.signup-form #signup_email, #signup_mobile, #signup_password {
+.signup-form #signup_name, #signup_email, #signup_mobile, #signup_password {
         display: block;
         width: 73%;
         padding: .375rem .75rem;
@@ -152,6 +152,10 @@
         border-color: transparent transparent #333 transparent;
       }
 
+.signup-eye-toggle-password {
+    margin-top: 21px;
+    margin-left: -44px;
+}
 
 
 @media (max-width: 767px){
@@ -186,7 +190,7 @@
                 width: 157px;
                 /* margin-top: 20px; */
         }
-        .signup-form #signup_email, #signup_password {
+        .signup-form #signup_name, #signup_email, #signup_mobile, #signup_password {
                 display: block;
                 width: 73%;
                 padding: .375rem .75rem;
@@ -276,7 +280,7 @@
                 display: flex;
                 justify-content:center;
                 align-items: center;
-                margin-top: 220px;
+                margin-top: 149px;
                 padding-top: 5px;
         }
         
@@ -299,7 +303,8 @@
         
     
         .signup-form
-         #name, #email, #mobile, #password {
+        #signup_name,
+        #signup_email, #signup_mobile, #signup_password {
                 display: block;
                 width: 73%;
                 padding: .375rem .75rem;

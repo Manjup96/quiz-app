@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import {  faEye, faEyeSlash, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { auth, db } from '../Firebase/FirebaseConfig';
 import { useAuth } from '../Context/AuthContext';
 import logo from '../Img/main-logo.png';
@@ -49,7 +49,7 @@ const Login = () => {
         // Add any other user data you need
       });
 
-      navigate('/dashboard');
+      navigate('/website');
     } catch (err) {
       setError('Invalid email or password. Please try again.');
     } finally {
@@ -91,6 +91,9 @@ const Login = () => {
               />
               <span className="info-icon" data-tooltip="Your password must be at least 8 characters long.">
                 <FontAwesomeIcon icon={faInfoCircle} />
+              </span>
+              <span className="login-eye-toggle-password" onClick={togglePasswordVisibility}>
+                <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
               </span>
             </div>
             {error && <div className="text-danger text-center">{error}</div>}
