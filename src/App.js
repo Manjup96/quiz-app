@@ -13,7 +13,8 @@ import Sidebar from "../src/Admin/Components/Sidebar/Sidebar";
 import UserSignup from "../src/Admin/Components/User/UserSignup"
 import ForgotPassword from "./Components/SignIn/ForgotPassword";
 import VerifyOTP from './Components/SignIn/VerifyOTP';
-import User from "../src/Admin/Components/User/User"
+import User from "../src/Admin/Components/User/User";
+import ManageUsers from "../src/Admin/Components/ManageUsers/ManageUsers"
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ function App() {
         <Route path="/sidebar" element={<Sidebar />} />
         <Route path="/userSignup" element={<UserSignup />} />
         <Route path="/user" element={<User />} />
+        <Route path="/manageUsers" element={<ManageUsers />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/verify-otp" element={<VerifyOTP />} />
 
