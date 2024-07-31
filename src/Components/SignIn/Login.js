@@ -1,6 +1,4 @@
 
-
-
 import React, { useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
@@ -28,8 +26,8 @@ const Login = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    
-    if (email === 'admin@gmail.com') {
+    // Add condition to prevent login for specific email
+    if (email === 'sai@gmail.com') {
       setError('This email is not allowed to log in.');
       setIsSubmitting(false);
       return;
@@ -43,14 +41,11 @@ const Login = () => {
       const userDoc = await db.collection('users').doc(user.uid).get();
       const userData = userDoc.data();
 
-      console.log("User Metadata:", user.metadata);
-
-      // Ensure all necessary details are part of the user object
+      // Ensure name is part of the user object
       login({
         uid: user.uid,
         email: user.email,
         name: userData?.name || 'Guest', // Default to 'Guest' if name is not available
-        createdAt: user.metadata.creationTime, // Using creationTime directly
         // Add any other user data you need
       });
 
@@ -65,13 +60,13 @@ const Login = () => {
   const canSubmit = email.trim() !== '' && password.trim() !== '';
 
   return (
-    <div className="main_login">
-      <div className="login_card">
+    <div className="main_login ">
+      <div className="login_card" >
         <div className="login-card-body">
           <div className="login-img-div">
             <img src={logo} alt="Logo"/>
           </div>
-          <form className='login-form' onSubmit={handleLogin}>
+          <form  className='login-form' onSubmit={handleLogin}>
             <div className="login-position-relative">
               <input
                 type="email"
@@ -81,9 +76,9 @@ const Login = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
-              <span className="info-icon" data-tooltip="The email that you used during the sign up process.">
+             <span className="info-icon" data-tooltip="The email that you used during the sign up process.">
                 <FontAwesomeIcon icon={faInfoCircle} />
-              </span>
+              </span> 
             </div>
             <div className="login-position-relative">
               <input
@@ -109,13 +104,17 @@ const Login = () => {
               </button>
             </div>
             <div className="login-forgot-password">
-              <a onClick={() => navigate('/forgot-password')}>
+              <a
+                onClick={() => navigate('/forgot-password')}
+              >
                 Forgot Password?
               </a>
             </div>
             <div className="login-sign-up-text">
               <p>
-                <a onClick={() => navigate('/signUp')}>
+                <a
+                  onClick={() => navigate('/signUp')}
+                >
                   &nbsp;SignUp
                 </a>
               </p>
