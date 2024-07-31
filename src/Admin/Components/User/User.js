@@ -43,7 +43,7 @@ const User = () => {
               <th>ID</th>
               <th>Name</th>
               <th>Email</th>
-              {/* Add more headers as needed */}
+            
             </tr>
           </thead>
           <tbody>
@@ -52,7 +52,7 @@ const User = () => {
                 <td>{user.id}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
-                {/* Add more fields as needed */}
+         
               </tr>
             ))}
           </tbody>
