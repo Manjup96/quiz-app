@@ -1,4 +1,3 @@
-// Import necessary dependencies
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../../../Admin/Components/Sidebar/Sidebar'; 
 import Header from '../../../Admin/Components/Header/Header';
@@ -15,10 +14,7 @@ const User = () => {
     const fetchUserDetails = async () => {
       try {
         const usersCollection = await db.collection('users').get();
-        const usersData = usersCollection.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
+        const usersData = usersCollection.docs.map(doc => doc.data());
         setUsers(usersData);
       } catch (error) {
         console.error("Error fetching users: ", error);
@@ -43,16 +39,26 @@ const User = () => {
               <th>ID</th>
               <th>Name</th>
               <th>Email</th>
+
+              <th>Mobile</th>
+              {/* Add more headers as needed */}
+
             
+ 
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
-              <tr key={user.id}>
-                <td>{user.id}</td>
+            {users.map((user, index) => (
+              <tr key={index}>
+                <td>{index + 1}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
+
+                <td>{user.mobile}</td>
+                {/* Add more fields as needed */}
+
          
+
               </tr>
             ))}
           </tbody>
