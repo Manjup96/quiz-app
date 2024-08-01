@@ -73,7 +73,7 @@ const Scores = () => {
               <th>Date</th>
               <th>Start Time</th>
               <th>End Time</th>
-              <th>Action</th>
+              <th>Report</th>
             </tr>
           </thead>
           <tbody>
