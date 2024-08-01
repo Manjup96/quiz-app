@@ -32,7 +32,7 @@ const Dashboard = () => {
         <div className="main-content">
           <h1 className='admindashboard-heading'>Admin</h1>
           <h2 className='admin-welcome'>Dashboard</h2>
-          <div className='card'>
+          <div className='dashboard-card card'>
             <p className='total-users'>Total Users: {userCount}</p> {/* Display user count here */}
           </div>
         </div>
