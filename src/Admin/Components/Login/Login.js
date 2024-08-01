@@ -85,7 +85,7 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              <span className="login-eye-toggle-password" onClick={togglePasswordVisibility}>
+              <span className="adminlogin-eye-toggle-password" onClick={togglePasswordVisibility}>
                 <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
     </span>
               <span className="info-icon" data-tooltip="Your password must be at least 8 characters long.">

@@ -65,6 +65,7 @@ const SignUp = () => {
             <img src={logo} alt="Logo" />
           </div>
           <form className='signup-form' onSubmit={handleSubmit}>
+              <h2>SignUp</h2>
           <div className='signup_position_relative'>
               <input
                 type="text"

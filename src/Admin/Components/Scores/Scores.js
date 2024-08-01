@@ -75,11 +75,12 @@ const Scores = () => {
             {scores.flatMap(score => 
               score.scores.map((item, index) => (
                 <tr key={`${score.id}-${index}`}>
-                  <td>{userNames[score.id] || 'Unknown'}</td> {/* Display user name */}
-                  <td>{item. activity || 'N/A'}</td>
-                  <td>{item.totalQuestions || 'N/A'}</td>
-                  <td>{item.correctAnswers || 'N/A'}</td>
-                  <td>{item.time || 'N/A'}</td> 
+                  <td>{userNames[score.id]}</td> {/* Display user name */}
+                  <td>{item. activity}</td>
+                  <td>{item.totalQuestions}</td>
+                  <td>{item.correctAnswers}</td>
+                  <td>{item.time}</td> 
+    
                 </tr>
               ))
             )}

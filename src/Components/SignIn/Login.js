@@ -27,7 +27,7 @@ const Login = () => {
     setIsSubmitting(true);
 
     // Add condition to prevent login for specific email
-    if (email === 'sai@gmail.com') {
+    if (email === 'admin@gmail.com') {
       setError('This email is not allowed to log in.');
       setIsSubmitting(false);
       return;
@@ -67,6 +67,7 @@ const Login = () => {
             <img src={logo} alt="Logo"/>
           </div>
           <form  className='login-form' onSubmit={handleLogin}>
+          <h2> LogIn</h2>
             <div className="login-position-relative">
               <input
                 type="email"

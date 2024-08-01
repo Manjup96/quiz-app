@@ -1,24 +1,4 @@
-// import React from 'react';
 
-// import { useAuth } from '../../../Components/Context/AuthContext';
-
-// const Dashboard = () => {
-//   const { user } = useAuth();
-  
-//   console.log("User data:", user);
-
-//   return (
-//     <div>
-      
-//       <h1>Dashboard</h1>
-     
-//         <h1>Welcome, {user.name}!!!</h1>
-       
-//     </div>
-//   );
-// };
-
-// export default Dashboard;
 
 
 import React, { useEffect, useState } from 'react';
@@ -30,7 +10,7 @@ import { db } from '../../../Components/Firebase/FirebaseConfig'; // Adjust the 
 
 const Dashboard = () => {
   const { user } = useAuth();
-  const [userCount, setUserCount] = useState(0);
+  const [userCount, setUserCount] = useState("");
 
   useEffect(() => {
     const fetchUserCount = async () => {
