@@ -45,6 +45,8 @@ const ForgotPassword = () => {
               <img src={logo} alt="Logo" />
             </div>
             <form onSubmit={handleSendEmail}>
+            <h2 className='heading-forgot-password'> ForgotPassword</h2>
+
               <div className="mb-3 forgot-position-relative">
                 <input
                   type="email"
@@ -66,7 +68,7 @@ const ForgotPassword = () => {
               <div className="text-center">
                 <button
                   type="submit"
-                  className="btn-success send-button"
+                  className=" send-button"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? 'Sending...' : 'Send Email'}
