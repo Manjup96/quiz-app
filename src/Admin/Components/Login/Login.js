@@ -26,10 +26,6 @@ const Login = () => {
     setIsSubmitting(true);
     setError(''); // Reset error message
 
-    const togglePasswordVisibility = () => {
-      setShowPassword(!showPassword);
-};
-
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
@@ -41,6 +37,7 @@ const Login = () => {
       // Ensure name is part of the user object
       if (userData && userData.email === 'admin@gmail.com') {
         login(userData); // Save userData in context and sessionStorage
+        window.alert('Login successfully');
         navigate('/admindashboard');
       } else {
         setError('Invalid email or password. Please try again.');
@@ -87,7 +84,7 @@ const Login = () => {
               />
               <span className="adminlogin-eye-toggle-password" onClick={togglePasswordVisibility}>
                 <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
-    </span>
+              </span>
               <span className="info-icon" data-tooltip="Your password must be at least 8 characters long.">
                 <FontAwesomeIcon icon={faInfoCircle} />
               </span>
@@ -103,7 +100,6 @@ const Login = () => {
               </button>
             </div>
           </form>
-         
         </div>
       </div>
     </div>

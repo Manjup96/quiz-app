@@ -1,6 +1,3 @@
-
-
-
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../../Components/Context/AuthContext';
 import Header from '../../../Admin/Components/Header/Header';
@@ -33,9 +30,11 @@ const Dashboard = () => {
       <div className="dashboard-container">
         <Sidebar />
         <div className="main-content">
-          <h1 className='admindashboard-heading'>Dashboard</h1>
-          <h2 className='admin-welcome'>Welcome Admin !!!</h2>
-          <p className='total-users'>Total Users: {userCount}</p> {/* Display user count here */}
+          <h1 className='admindashboard-heading'>Admin</h1>
+          <h2 className='admin-welcome'>Dashboard</h2>
+          <div className='dashboard-card card'>
+            <p className='total-users'>Total Users: {userCount}</p> {/* Display user count here */}
+          </div>
         </div>
       </div>
     </div>
