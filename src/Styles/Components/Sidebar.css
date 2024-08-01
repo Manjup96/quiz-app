@@ -1,92 +1,82 @@
 .dashboard-container {
-    display: flex;
-  }
-  
-  .sidebar {
-    width: 190px;
-    height: 100vh;
-    transition: width 0.3s ease;
-    background-color: #dde3ea;
-    position: fixed;
-    margin-top: 57px;
-  }
-  
-  .sidebar.collapsed {
-    width: 80px;
-  }
-  
-  .sidebar.collapsed .link_text {
-    display: none;
-    
-  }
-  
-  .sidebar.collapsed .toggle-icon {
-    transform: rotate(180deg);
-  }
-  
-  .sidebar .Title {
-    text-align: left;
-    padding: 20px 0;
-    margin-left: 10px;
-  }
-  
-  .sidebar .nav .nav-item .nav-link {
-    display: flex;
-    align-items: center;
-    padding: 10px 20px;
-  }
-  
-  .sidebar .nav .nav-item .nav-link .nav-icon {
-    margin-right: 10px;
-  }
-  
-  .sidebar .nav .nav-item.active {
-    background-color: white;
-  }
-  
-  .sidebar .sidebar-toggle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    padding: 10px;
-  }
-  
-  .sidebar .sidebar-toggle .toggle-icon {
-    font-size: 1.5em;
-    margin-left: -20px;
-    margin-top: -102px;
-  }
-  
-  .main-content {
-    flex-grow: 1;
-    padding: 20px;
-    position: fixed;
-    margin-left: 529px;
-  }
-  
-  .sidebar-toggle {
- 
-    cursor: pointer;
-    text-align: center;
-    font-size: 21px;
-    transition: all 0.3s ease;
-    margin-left: 72%;
-    width: 37px;
-    margin-bottom: 6px;
-    /* background-color: #f0f0f0; */
-    color: #0a98d8;
-  }
-  
-  .sidebar-toggle.collapsed {
-    /* background-color: #f0f0f0; Example different background color */
-    color: #0a98d8;
-    margin-left: 40%;
-    margin-top: 15px;
-    /* Add any other styles you want for the collapsed state */
-  }
-  
-    &.collapsed {
-      width: 50px; 
-    }
-  
+  display: flex;
+}
+
+.sidebar {
+  width: 190px;
+  height: 100vh;
+  transition: width 0.3s ease;
+  background-color: #cddef3;
+  position: fixed;
+  margin-top: 57px;
+}
+
+.sidebar.collapsed {
+  width: 80px;
+}
+
+.sidebar.collapsed .link_text {
+  display: none;
+}
+
+/* .sidebar.collapsed .toggle-icon {
+  transform: rotate(180deg);
+} */
+
+.sidebar .Title {
+  text-align: left;
+  padding: 20px 0;
+  margin-left: 10px;
+}
+
+.sidebar .nav .nav-item .nav-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.sidebar .nav .nav-item .nav-link .nav-icon {
+  margin-right: 10px;
+}
+
+.sidebar .nav .nav-item.active {
+  background-color: rgba(254, 252, 252, 0.847);
+}
+
+.sidebar .sidebar-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.sidebar .sidebar-toggle .toggle-icon {
+  font-size: 1.5em;
+  margin-left: -20px;
+  margin-top: -102px;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  position: fixed;
+  margin-left: 529px;
+}
+
+.sidebar-toggle {
+  cursor: pointer;
+  text-align: center;
+  font-size: 21px;
+  transition: all 0.3s ease;
+  margin-left: 72%;
+  width: 37px;
+  margin-bottom: 6px;
+  color: #0a98d8;
+}
+
+.sidebar-toggle.collapsed {
+  color: #0a98d8;
+  margin-left: 40%;
+  margin-top: 15px;
+}

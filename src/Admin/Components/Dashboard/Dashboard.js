@@ -27,8 +27,8 @@ const Dashboard = () => {
   return (
     <div>
       <Header />
+      <Sidebar />
       <div className="dashboard-container">
-        <Sidebar />
         <div className="main-content">
           <h1 className='admindashboard-heading'>Admin</h1>
           <h2 className='admin-welcome'>Dashboard</h2>
