@@ -5,7 +5,9 @@
         margin-top: 100px;
         padding-top: 5px;
 }
-
+.signup-main-heading{
+        text-align: center;
+}
 .signup-card {
         width: 28rem;
         border-radius: 20px;

@@ -33,7 +33,8 @@ const User = () => {
       <Sidebar />
       <div className="user-table-container">
         <h1 className='user-table-heading'>User Details</h1>
-        <table>
+        <div className='table-main'>
+        <table className='user_table_main'>
           <thead>
             <tr>
               <th>ID</th>
@@ -41,10 +42,6 @@ const User = () => {
               <th>Email</th>
 
               <th>Mobile</th>
-              {/* Add more headers as needed */}
-
-            
- 
             </tr>
           </thead>
           <tbody>
@@ -53,16 +50,12 @@ const User = () => {
                 <td>{index + 1}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
-
                 <td>{user.mobile}</td>
-                {/* Add more fields as needed */}
-
-         
-
               </tr>
             ))}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   );

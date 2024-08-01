@@ -9,6 +9,10 @@
         margin-top: 100px;
         padding-top: 5px;
       }
+
+      .login-main_heading{
+        text-align: center;
+      }
       
       .login_card {
         width: 28rem;

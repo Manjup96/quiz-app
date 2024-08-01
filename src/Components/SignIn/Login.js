@@ -67,7 +67,7 @@ const Login = () => {
             <img src={logo} alt="Logo"/>
           </div>
           <form  className='login-form' onSubmit={handleLogin}>
-          <h2> LogIn</h2>
+          <h2 className='login-main_heading'> LogIn</h2>
             <div className="login-position-relative">
               <input
                 type="email"
