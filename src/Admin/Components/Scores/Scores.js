@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import Sidebar from '../../../Admin/Components/Sidebar/Sidebar'; 
+import Sidebar from '../../../Admin/Components/Sidebar/Sidebar';
 import Header from '../../../Admin/Components/Header/Header';
 import { useAuth } from '../../../Components/Context/AuthContext';
 import { db } from '../../../Components/Firebase/FirebaseConfig';
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import generatePDFDocument from './generatePDF';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
+
 
 const Scores = () => {
   const { user } = useAuth();
   const [scores, setScores] = useState([]);
-  const [userNames, setUserNames] = useState({}); // Store user names with ID as key
+  const [userNames, setUserNames] = useState({});
 
   useEffect(() => {
     const fetchScoresDetails = async () => {
       try {
-        // Fetch scores data
         const scoresCollection = await db.collection('score').get();
         const scoresData = scoresCollection.docs.map(doc => ({
           id: doc.id,
@@ -20,12 +24,10 @@ const Scores = () => {
         }));
         setScores(scoresData);
 
-        // Collect unique user IDs
         const userIds = Array.from(new Set(scoresData.map(score => score.id)));
         console.log("User IDs to fetch:", userIds);
 
-        // Fetch user names based on user IDs
-        const userPromises = userIds.map(id => 
+        const userPromises = userIds.map(id =>
           db.collection('users').doc(id).get().then(userDoc => {
             if (userDoc.exists) {
               console.log(`Fetched user ${id}:`, userDoc.data());
@@ -50,7 +52,7 @@ const Scores = () => {
         console.error("Error fetching Scores or Users:", error);
       }
     };
-    
+
     fetchScoresDetails();
   }, []);
 
@@ -60,7 +62,7 @@ const Scores = () => {
       <Sidebar />
       <div className="user-table-container">
         <h1 className='user-table-heading'>Scores Details</h1>
-        <table>
+        <table style={{ marginLeft: "330px" }}>
           <thead>
             <tr>
               <th>Name</th>
@@ -70,22 +72,41 @@ const Scores = () => {
               <th>Duration</th>
               <th>Date</th>
               <th>Start Time</th>
-              <th>End time</th>
+              <th>End Time</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {scores.flatMap(score => 
+            {scores.flatMap(score =>
               score.scores.map((item, index) => (
                 <tr key={`${score.id}-${index}`}>
-                  <td>{userNames[score.id]}</td> {/* Display user name */}
-                  <td>{item. activity}</td>
+                  <td>{userNames[score.id]}</td>
+                  <td>{item.activity}</td>
                   <td>{item.totalQuestions}</td>
                   <td>{item.correctAnswers}</td>
-                  <td>{item.duration}</td> 
-                  <td>{item.date}</td> 
-                  <td>{item.startTime}</td> 
-                  <td>{item.endTime}</td> 
-    
+                  <td>{item.duration}</td>
+                  <td>{item.date}</td>
+                  <td>{item.startTime}</td>
+                  <td>{item.endTime}</td>
+                  <td>
+                    <PDFDownloadLink
+                      document={generatePDFDocument(
+                        userNames[score.id],
+                        item.activity,
+                        item.totalQuestions,
+                        item.correctAnswers,
+                        item.duration,
+                        item.date,
+                        item.startTime,
+                        item.endTime
+                      )}
+                      fileName={`${userNames[score.id]}_score.pdf`}
+                    >
+                      <FontAwesomeIcon icon={faFilePdf} />
+
+                    </PDFDownloadLink>
+
+                  </td>
                 </tr>
               ))
             )}
