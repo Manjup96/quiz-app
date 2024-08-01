@@ -67,8 +67,10 @@ const Scores = () => {
               <th>Activity</th>
               <th>Total Questions</th>
               <th>Correct Answers</th>
-              <th>Time</th>
-             
+              <th>Duration</th>
+              <th>Date</th>
+              <th>Start Time</th>
+              <th>End time</th>
             </tr>
           </thead>
           <tbody>
@@ -79,7 +81,10 @@ const Scores = () => {
                   <td>{item. activity}</td>
                   <td>{item.totalQuestions}</td>
                   <td>{item.correctAnswers}</td>
-                  <td>{item.time}</td> 
+                  <td>{item.duration}</td> 
+                  <td>{item.date}</td> 
+                  <td>{item.startTime}</td> 
+                  <td>{item.endTime}</td> 
     
                 </tr>
               ))
