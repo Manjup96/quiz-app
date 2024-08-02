@@ -26,7 +26,7 @@ const Dashboard = () => {
     fetchUserCount();
   }, []);
 
-  console.log("User data:", user);
+  // console.log("User data:", user);
 
   return (
     <div>
