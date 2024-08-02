@@ -7,16 +7,13 @@ import Login from "./Components/SignIn/Login";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import { AuthProvider }  from "./Components/Context/AuthContext";
 
-import AdminnLogin from "../src/Admin/Components/Login/Login";
+import AdminLogin from "../src/Admin/Components/Login/Login";
 import AdminDashboard from "../src/Admin/Components/Dashboard/Dashboard";
 import Sidebar from "../src/Admin/Components/Sidebar/Sidebar";
 
 import ForgotPassword from "./Components/SignIn/ForgotPassword";
-import VerifyOTP from './Components/SignIn/VerifyOTP';
-import Website from "./Components/Website/website";
-
-
-
+// import VerifyOTP from './Components/SignIn/VerifyOTP';
+import Website from "./Components/Website/website"
 import User from "../src/Admin/Components/User/User";
 import ManageUsers from "../src/Admin/Components/ManageUsers/ManageUsers"
 import Score from "../src/Admin/Components/Scores/Scores"
@@ -36,7 +33,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
 
         <Route path="/admindashboard" element={<AdminDashboard />} />
-        <Route path="/admin" element={<AdminnLogin />} />
+        <Route path="/admin" element={<AdminLogin />} />
         <Route path="/sidebar" element={<Sidebar />} />
         <Route path="/user" element={<User />} />
         <Route path="/manageUsers" element={<ManageUsers />} />

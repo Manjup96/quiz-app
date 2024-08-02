@@ -37,7 +37,7 @@ const Login = () => {
       // Ensure name is part of the user object
       if (userData && userData.email === 'admin@gmail.com') {
         login(userData); // Save userData in context and sessionStorage
-        window.alert('Login successfully');
+        // window.alert('Login successfully');
         navigate('/admindashboard');
       } else {
         setError('Invalid email or password. Please try again.');
