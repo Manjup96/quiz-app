@@ -12,8 +12,12 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchUserCount = async () => {
       try {
-        const usersSnapshot = await db.collection('users').get();
-        setUserCount(usersSnapshot.size);
+        const userCounterDoc = await db.collection('counters').doc('userCounter').get();
+        if (userCounterDoc.exists) {
+          setUserCount(userCounterDoc.data().current);
+        } else {
+          console.error("userCounter document not found.");
+        }
       } catch (error) {
         console.error("Error fetching user count: ", error);
       }
@@ -22,7 +26,7 @@ const Dashboard = () => {
     fetchUserCount();
   }, []);
 
-  console.log("User data:", user);
+  // console.log("User data:", user);
 
   return (
     <div>
