@@ -7,6 +7,7 @@ import { PDFDownloadLink } from '@react-pdf/renderer';
 import generatePDFDocument from './generatePDF';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
+import './Scores.css';
 
 
 const Scores = () => {
@@ -60,9 +61,10 @@ const Scores = () => {
     <div>
       <Header />
       <Sidebar />
-      <div className="user-table-container">
-        <h1 className='user-table-heading'>Scores Details</h1>
-        <table style={{ marginLeft: "330px" }}>
+      <div className="scores-table-container">
+        <h1 className='scores-table-heading'>Scores Details</h1>
+        <div className='scores-scroll-table'>
+        <table className='scores_table_main' >
           <thead>
             <tr>
               <th>Name</th>
@@ -112,6 +114,7 @@ const Scores = () => {
             )}
           </tbody>
         </table>
+        </div>
       </div>
     </div>
   );
