@@ -1,12 +1,12 @@
 /* AdminDashboard.css */
 .admindashboard-heading {
     margin-top: 65px;
-    margin-left: 145px;
+    margin-left: 680px;
 }
 
 .admin-welcome {
     margin-right: 630px;
-    margin-left: 123px;
+    margin-left: 660px;
 
 }
 
@@ -19,7 +19,7 @@
     height: 150px;
     padding: 20px;
     margin-top: 150px;
-    margin-left: 50px;
+    margin-left: 590px;
     margin-right: 689px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

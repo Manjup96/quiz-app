@@ -57,12 +57,12 @@
   margin-top: -102px;
 }
 
-.main-content {
+/* .main-content {
   flex-grow: 1;
   padding: 20px;
   position: fixed;
-  margin-left: 529px;
-}
+  margin-left: 300px;
+} */
 
 .sidebar-toggle {
   cursor: pointer;
