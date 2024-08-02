@@ -1,0 +1,127 @@
+.scores-table-container {
+        padding: 20px;
+      }
+    
+     .scores-table-heading {
+        text-align: center;
+         margin-top: 50px; 
+         margin-bottom: 30px;
+     }
+      
+     .scores_table_main {
+        width: 85%;
+        margin-left: 213px;
+        /* margin-top: -150px; */
+        border-collapse: collapse;
+      }
+      
+      th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
+      
+      th {
+        background-color: #f4f4f4;
+        text-align: left;
+      }
+      
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+      
+      tr:hover {
+        background-color: #f1f1f1;
+      }
+      
+
+
+      
+  /* tablet view */
+
+
+@media only screen and (min-width: 768px) and (max-width: 1024px){
+        .scores-table-container {
+          padding: 20px;
+        }
+      
+       .scores-table-heading {
+          text-align: center;
+           margin-top: 55px; 
+           margin-bottom: 20px;
+       }
+      
+       .scores-scroll-table{
+        overflow-x: scroll;
+        margin-right: -10px;
+       }
+       .scores_table_main {
+        width: 133%;
+        margin-left: 71px;
+        border-collapse: collapse;
+        }
+        
+        th, td {
+          border: 1px solid #ddd;
+          padding: 8px;
+        }
+        
+        th {
+          background-color: #f4f4f4;
+          text-align: left;
+        }
+        
+        tr:nth-child(even) {
+          background-color: #f9f9f9;
+        }
+        
+        tr:hover {
+          background-color: #f1f1f1;
+        }
+        
+      }
+      
+      
+      /* mobile view */
+      
+      
+      @media only screen and (max-width: 767px){
+        .scores-table-container {
+          padding: 20px;
+        }
+      
+       .scores-table-heading {
+          text-align: center;
+           margin-top: 60px; 
+           margin-bottom: 20px;
+      
+       }
+       .scores-scroll-table{
+        overflow-x: scroll;
+        margin-right: -10px;
+       }
+        
+       .scores_table_main {
+        width: 275%;
+        margin-left: 69px;
+        border-collapse: collapse;
+        }
+        
+        th, td {
+          border: 1px solid #ddd;
+          padding: 8px;
+        }
+        
+        th {
+          background-color: #f4f4f4;
+          text-align: left;
+        }
+        
+        tr:nth-child(even) {
+          background-color: #f9f9f9;
+        }
+        
+        tr:hover {
+          background-color: #f1f1f1;
+        }
+        
+      }
