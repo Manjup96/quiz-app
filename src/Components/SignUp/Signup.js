@@ -6,8 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import logo from "../Img/main-logo.png"; 
-import './SignUp.css';
-
+import '../../Styles/Components/SignUp.css';
 const SignUp = () => {
   const navigate = useNavigate();
   const [name, setName] = useState('');
