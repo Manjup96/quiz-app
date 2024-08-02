@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react';
 import Sidebar from '../../../Admin/Components/Sidebar/Sidebar';
 import Header from '../../../Admin/Components/Header/Header';
 import { useAuth } from '../../../Components/Context/AuthContext';
-import { db } from '../../../Components/Firebase/FirebaseConfig'; // Ensure the path is correct
-import '../../../Styles/Components/Scores.css'; // Import the CSS file
+import { db } from '../../../Components/Firebase/FirebaseConfig';
+import '../../../Styles/Components/Scores.css';
+import { Pagination } from "react-bootstrap"; // Import the CSS file
 
 const Scores = () => {
   const { user } = useAuth();
   const [scores, setScores] = useState([]);
   const [userNames, setUserNames] = useState({}); // Store user names and student IDs with ID as key
-  const [searchQuery, setSearchQuery] = useState(""); // State to handle search query
+  const [searchQuery, setSearchQuery] = useState("");
+  const [pageSize, setPageSize] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchScoresDetails = async () => {
@@ -90,6 +93,40 @@ const Scores = () => {
     );
   });
 
+  const indexOfLastScore = currentPage * pageSize;
+  const indexOfFirstScore = indexOfLastScore - pageSize;
+  const currentScores = filteredScores.slice(indexOfFirstScore, indexOfLastScore);
+
+  const totalPages = Math.ceil(filteredScores.length / pageSize);
+
+  const renderPagination = () => {
+    const pages = [];
+    for (let i = 1; i <= totalPages; i++) {
+      pages.push(
+        <Pagination.Item
+          key={i}
+          active={i === currentPage}
+          onClick={() => setCurrentPage(i)}
+        >
+          {i}
+        </Pagination.Item>
+      );
+    }
+    return (
+      <Pagination>
+        <Pagination.Prev
+          onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+        />
+        {pages}
+        <Pagination.Next
+          onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+          disabled={currentPage === totalPages}
+        />
+      </Pagination>
+    );
+  };
+
   return (
     <div>
       <Header />
@@ -109,6 +146,7 @@ const Scores = () => {
           <table className='score_table_main'>
             <thead>
               <tr>
+                <th>S.No</th>
                 <th>Student ID</th>
                 <th>Name</th>
                 <th>Mobile</th>
@@ -122,11 +160,12 @@ const Scores = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredScores.map((score, index) => (
+              {currentScores.map((score, index) => (
                 <tr key={`${score.userId}-${index}`}>
-                  <td>{userNames[score.userId]?.studentId || 'Unknown'}</td> {/* Display student ID */}
+                  <td>{indexOfFirstScore + index + 1}</td> {/* Continuous serial numbers */}
+                  <td>{userNames[score.userId]?.studentId || 'Unknown'}</td>
                   <td>{userNames[score.userId]?.name || 'Unknown'}</td>
-                  <td>{userNames[score.userId]?.mobile || 'Unknown'}</td> {/* Display user name */}
+                  <td>{userNames[score.userId]?.mobile || 'Unknown'}</td>
                   <td>{score.activity}</td>
                   <td>{score.totalQuestions}</td>
                   <td>{score.correctAnswers}</td>
@@ -138,6 +177,9 @@ const Scores = () => {
               ))}
             </tbody>
           </table>
+        </div>
+        <div className="d-flex justify-content-center mt-2">
+          {renderPagination()}
         </div>
       </div>
     </div>
