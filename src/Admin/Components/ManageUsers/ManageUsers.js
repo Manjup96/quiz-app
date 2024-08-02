@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { auth, db } from '../../../Components/Firebase/FirebaseConfig';
 import Sidebar from '../../../Admin/Components/Sidebar/Sidebar';
 import Header from '../../../Admin/Components/Header/Header';
@@ -12,10 +12,32 @@ const ManageUsers = () => {
   const [password, setPassword] = useState('');
   const [mobile, setMobile] = useState('');
   const [error, setError] = useState('');
+  const [newUserId, setNewUserId] = useState('');
+
+  useEffect(() => {
+    const fetchLatestUserId = async () => {
+      try {
+        const querySnapshot = await db.collection('users').orderBy('createdAt', 'desc').limit(1).get();
+        if (!querySnapshot.empty) {
+          const latestUser = querySnapshot.docs[0].data();
+          const latestUserId = latestUser.id;
+          const latestIdNumber = parseInt(latestUserId.replace('std', ''));
+          setNewUserId(`std${latestIdNumber + 1}`);
+        } else {
+          setNewUserId('std1'); // If no users exist, start with std1
+        }
+      } catch (err) {
+        console.error("Error fetching latest user ID: ", err);
+        setError('Error fetching latest user ID');
+      }
+    };
+
+    fetchLatestUserId();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     setError('');
 
     try {
@@ -25,6 +47,7 @@ const ManageUsers = () => {
 
       // Add user data to Firestore
       await db.collection('users').doc(user.uid).set({
+        id: newUserId,
         name,
         email,
         password,
@@ -38,7 +61,6 @@ const ManageUsers = () => {
       setPassword('');
       setMobile('');
       setError('');
-
       alert('Registered successfully!');
     } catch (err) {
       console.error("Error during registration: ", err);
@@ -52,7 +74,7 @@ const ManageUsers = () => {
       <div className="manage-users-container">
         <Sidebar />
         <div className="manage-users-form-container">
-        <h2 className='manage-users-heading'>Registration</h2>
+          <h2 className='manage-users-heading'>Registration</h2>
           <div className="manage-users-form-card">
             <form onSubmit={handleSubmit} className="registration-form">
               <div className="manage-users-form-group">
