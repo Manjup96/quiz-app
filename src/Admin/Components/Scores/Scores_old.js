@@ -4,7 +4,7 @@ import Header from '../../../Admin/Components/Header/Header';
 import { useAuth } from '../../../Components/Context/AuthContext';
 import { db } from '../../../Components/Firebase/FirebaseConfig';
 import '../../../Styles/Components/Scores.css';
-import { Pagination, Modal, Button } from "react-bootstrap"; // Import necessary components
+import { Pagination } from "react-bootstrap"; // Import the CSS file
 
 const Scores = () => {
   const { user } = useAuth();
@@ -13,8 +13,6 @@ const Scores = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
-  const [showModal, setShowModal] = useState(false);
-  const [selectedQuestionScores, setSelectedQuestionScores] = useState([]);
 
   useEffect(() => {
     const fetchScoresDetails = async () => {
@@ -129,12 +127,6 @@ const Scores = () => {
     );
   };
 
-  // Function to handle View button click
-  const handleViewClick = (questionScores) => {
-    setSelectedQuestionScores(questionScores);
-    setShowModal(true);
-  };
-
   return (
     <div>
       <Header />
@@ -165,7 +157,7 @@ const Scores = () => {
                 <th>Date</th>
                 <th>Start Time</th>
                 <th>End time</th>
-                <th>Actions</th> {/* New column for Actions */}
+                <th>Questions</th> {/* New column for Questions */}
               </tr>
             </thead>
             <tbody>
@@ -183,9 +175,13 @@ const Scores = () => {
                   <td>{score.startTime}</td>
                   <td>{score.endTime}</td>
                   <td>
-                    <Button variant="primary" onClick={() => handleViewClick(score.questionScores)}>
-                      View
-                    </Button>
+                    <ul>
+                      {score.questionScores?.map((q, qIndex) => (
+                        <li key={qIndex}>
+                          Question {q.questionNumber}: Score {q.score}
+                        </li>
+                      ))}
+                    </ul>
                   </td>
                 </tr>
               ))}
@@ -196,42 +192,6 @@ const Scores = () => {
           {renderPagination()}
         </div>
       </div>
-
-      {/* Modal for displaying questionScores */}
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
-  <Modal.Header closeButton>
-    <Modal.Title>Question Scores</Modal.Title>
-  </Modal.Header>
-  <Modal.Body>
-  <table className="table">
-    <thead>
-      <tr>
-        {selectedQuestionScores.map((q, index) => (
-          <th key={index}>Question {q.questionNumber}</th>
-        ))}
-        <th>Total</th> {/* Column for total */}
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        {selectedQuestionScores.map((q, index) => (
-          <td key={index}>{q.score}</td>
-        ))}
-        <td>
-          {selectedQuestionScores.reduce((sum, q) => sum + q.score, 0)} / {selectedQuestionScores.length}
-        </td> {/* Total count */}
-      </tr>
-    </tbody>
-  </table>
-</Modal.Body>
-
-  <Modal.Footer>
-    <Button variant="secondary" onClick={() => setShowModal(false)}>
-      Close
-    </Button>
-  </Modal.Footer>
-</Modal>
-
     </div>
   );
 };
