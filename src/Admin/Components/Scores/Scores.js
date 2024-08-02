@@ -51,7 +51,7 @@ const Scores = () => {
           db.collection('users').doc(id).get().then(userDoc => {
             if (userDoc.exists) {
               console.log(`Fetched user ${id}:`, userDoc.data());
-              return { id: id, name: userDoc.data().name, studentId: userDoc.data().id };
+              return { id: id, name: userDoc.data().name, studentId: userDoc.data().id, mobile: userDoc.data().mobile };
             } else {
               console.warn(`No user found for ID ${id}`);
               return { id: id, name: 'Unknown', studentId: 'Unknown' };
@@ -61,7 +61,7 @@ const Scores = () => {
 
         const usersData = await Promise.all(userPromises);
         const usersMap = usersData.reduce((acc, user) => {
-          acc[user.id] = { name: user.name, studentId: user.studentId };
+          acc[user.id] = { name: user.name, studentId: user.studentId, mobile: user.mobile };
           return acc;
         }, {});
 
@@ -80,9 +80,11 @@ const Scores = () => {
   const filteredScores = scores.filter(score => {
     const userId = userNames[score.userId]?.studentId || 'Unknown';
     const userName = userNames[score.userId]?.name || 'Unknown';
+    const mobile = userNames[score.userId]?.mobile || 'Unknown';
     return (
       userId.toLowerCase().includes(searchQuery.toLowerCase()) ||
       userName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      mobile.toLowerCase().includes(searchQuery.toLowerCase()) ||
       score.activity.toLowerCase().includes(searchQuery.toLowerCase()) ||
       score.date.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -109,6 +111,7 @@ const Scores = () => {
               <tr>
                 <th>Student ID</th>
                 <th>Name</th>
+                <th>Mobile</th>
                 <th>Activity</th>
                 <th>Total Questions</th>
                 <th>Correct Answers</th>
@@ -122,7 +125,8 @@ const Scores = () => {
               {filteredScores.map((score, index) => (
                 <tr key={`${score.userId}-${index}`}>
                   <td>{userNames[score.userId]?.studentId || 'Unknown'}</td> {/* Display student ID */}
-                  <td>{userNames[score.userId]?.name || 'Unknown'}</td> {/* Display user name */}
+                  <td>{userNames[score.userId]?.name || 'Unknown'}</td>
+                  <td>{userNames[score.userId]?.mobile || 'Unknown'}</td> {/* Display user name */}
                   <td>{score.activity}</td>
                   <td>{score.totalQuestions}</td>
                   <td>{score.correctAnswers}</td>
