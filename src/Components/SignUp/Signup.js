@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import { db, auth } from '../Firebase/FirebaseConfig';
 import { useNavigate } from 'react-router-dom';
@@ -27,17 +25,29 @@ const SignUp = () => {
     setError('');
 
     try {
+      // Get the current counter value
+      const counterDoc = await db.collection('counters').doc('userCounter').get();
+      const currentCounter = counterDoc.exists ? counterDoc.data().current : 0;
+      const newCounter = currentCounter + 1;
+      const newUserId = `std${newCounter}`;
+
+      // Update the counter in Firestore
+      await db.collection('counters').doc('userCounter').set({ current: newCounter });
+
+      // Create the user with Firebase Authentication
       const userCredential = await auth.createUserWithEmailAndPassword(email, password);
       const user = userCredential.user;
 
+      // Save user data to Firestore with the new ID
       await db.collection('users').doc(user.uid).set({
+        id: newUserId,
         name,
         email,
         mobile,
         password,
         createdAt: new Date(),
-        
       });
+
       setName('');
       setEmail('');
       setPassword('');
@@ -64,8 +74,8 @@ const SignUp = () => {
             <img src={logo} alt="Logo" />
           </div>
           <form className='signup-form' onSubmit={handleSubmit}>
-              <h2 className='signup-main-heading'>SignUp</h2>
-          <div className='signup_position_relative'>
+            <h2 className='signup-main-heading'>SignUp</h2>
+            <div className='signup_position_relative'>
               <input
                 type="text"
                 id="signup_name"
@@ -100,14 +110,12 @@ const SignUp = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-           
               <span className="info-icon" data-tooltip="Your password must be at least 8 characters long.">
                 <FontAwesomeIcon icon={faInfoCircle} />
               </span>
               <span className="signup-eye-toggle-password" onClick={togglePasswordVisibility}>
                 <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
               </span>
-            
             </div>
             <div className='signup_position_relative'>
               <input
@@ -152,4 +160,3 @@ const SignUp = () => {
 };
 
 export default SignUp;
-
