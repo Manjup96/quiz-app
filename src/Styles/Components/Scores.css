@@ -14,7 +14,7 @@
 
 .score-table-heading {
   text-align: center;
-  margin: 0;
+  margin-top: 56px;
 }
 
 .score-search-input {
@@ -22,7 +22,8 @@
   font-size: 1em;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 150px;
+  width: 221px;
+  margin-left: 74%;
 }
 
 .score_table_main {
@@ -48,6 +49,22 @@ tr:nth-child(even) {
 tr:hover {
   background-color: #f1f1f1;
 }
+.scores_pdf {
+  background-color: #0d6efd;
+  border: none;
+  color: white;
+  padding: 7px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+
+
 
 /* Tablet view */
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
@@ -56,8 +73,7 @@ tr:hover {
   }
 
   .score-table-header {
-    flex-direction: column;
-    align-items: flex-start;
+    display: flex;
   }
 
   .score-table-heading {
@@ -66,13 +82,24 @@ tr:hover {
     margin-bottom: 18px;
   }
 
+  .score-search-input {
+    padding: 0.5em;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 221px;
+    margin-left: 26%; 
+   }
+
+ 
   .table-main {
+    overflow-x: scroll;
     margin-right: -10px;
   }
 
   .score_table_main {
-    width: 88%;
-    margin-left: 84px;
+    width: 160%;
+    margin-left: 70px;
     border-collapse: collapse;
   }
   
@@ -92,6 +119,20 @@ tr:hover {
 
   tr:hover {
     background-color: #f1f1f1;
+  }
+
+
+  .scores_pdf {
+    background-color: #0d6efd;
+    border: none;
+    color: white;
+    padding: 7px 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin-left: -75%;
+    cursor: pointer;
+    border-radius: 4px;
   }
 }
 
@@ -118,7 +159,7 @@ tr:hover {
   }
 
   .score_table_main {
-    width: 85%;
+    width: 330%;
     margin-left: 69px;
     border-collapse: collapse;
   }
@@ -140,4 +181,27 @@ tr:hover {
   tr:hover {
     background-color: #f1f1f1;
   }
+
+  .scores_pdf {
+    background-color: #0d6efd;
+    border: none;
+    color: white;
+    padding: 9px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 21px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  .score-search-input {
+    padding: 0.5em;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 165px;
+    margin-left: -49%;
+    margin-bottom: -47px;
+}
 }

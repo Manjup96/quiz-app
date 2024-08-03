@@ -142,8 +142,11 @@ const Scores = () => {
       <Header />
       <Sidebar />
       <div className="score-table-container">
-        <div className="score-table-header">
+      <div>
           <h2 className='score-table-heading'>Score Details</h2>
+          </div>
+        <div className="score-table-header">
+         
           <input
             type="text"
             placeholder="Search..."
@@ -152,11 +155,15 @@ const Scores = () => {
             className="score-search-input"
           />
           <PDFDownloadLink
-          className='scores_pdf'
             document={<ScoresPDF scores={currentScores} userNames={userNames} />}
             fileName="scores.pdf"
           >
-            {({ loading }) => (loading ? 'Loading document...' : 'Download PDF')}
+               {({ loading }) => (
+      <button className="scores_pdf">
+        {loading ? 'Loading document...' : 'Download PDF'}
+      </button>
+    )}
+
           </PDFDownloadLink>
         </div>
         <div className='table-main'>
