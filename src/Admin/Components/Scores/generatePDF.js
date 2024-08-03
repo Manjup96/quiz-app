@@ -7,25 +7,26 @@ Font.register({ family: 'Roboto', src: 'https://fonts.gstatic.com/s/roboto/v27/K
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'row',
-    backgroundColor: '#E4E4E4',
-    padding: 20,
+    padding: 5,
   },
   section: {
-    margin: 10,
-    padding: 10,
+    margin: 5,
+    padding: 5,
     flexGrow: 1,
   },
   header: {
-    fontSize: 24,
-    marginBottom: 10,
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginBottom: 5,
     fontFamily: 'Roboto',
+    textAlign:'center'
   },
   tableHeader: {
     backgroundColor: '#4CAF50',
-    color: '#ffffff',
+    color: 'black',
     flexDirection: 'row',
     borderBottomWidth: 1,
-    alignItems: 'center',
+    alignItems: 'left',
     padding: 5,
   },
   tableRow: {
@@ -37,6 +38,8 @@ const styles = StyleSheet.create({
   tableCol: {
     width: '10%',
     textAlign: 'center',
+    fontSize: 10,
+
   },
 });
 
@@ -46,12 +49,18 @@ const ScoresPDF = ({ scores, userNames }) => (
       <View style={styles.section}>
         <Text style={styles.header}>Score Details</Text>
         <View style={styles.tableHeader}>
-          <Text style={styles.tableCol}>S.No</Text>
+          <Text style={{width:'8%', fontSize:"10px",  textAlign: 'center',
+
+ }}>S.No</Text>
           <Text style={styles.tableCol}>Student ID</Text>
           <Text style={styles.tableCol}>Name</Text>
           <Text style={styles.tableCol}>Mobile</Text>
-          <Text style={styles.tableCol}>Activity</Text>
-          <Text style={styles.tableCol}>Total Questions</Text>
+          <Text style={{width:'10%', fontSize:"10px",  textAlign: 'right',
+
+}}>Activity</Text>
+          <Text style={{width:'10%', fontSize:"10px", textAlign: 'center', marginLeft:'5px'
+
+}}>Total Questions</Text>
           <Text style={styles.tableCol}>Correct Answers</Text>
           <Text style={styles.tableCol}>Duration</Text>
           <Text style={styles.tableCol}>Date</Text>
@@ -60,11 +69,17 @@ const ScoresPDF = ({ scores, userNames }) => (
         </View>
         {scores.map((score, index) => (
           <View key={`${score.userId}-${index}`} style={styles.tableRow}>
-            <Text style={styles.tableCol}>{index + 1}</Text>
+            <Text style={{width:'8%', fontSize:"10px",  textAlign: 'center',
+
+}}>{index + 1}</Text>
             <Text style={styles.tableCol}>{userNames[score.userId]?.studentId || 'Unknown'}</Text>
             <Text style={styles.tableCol}>{userNames[score.userId]?.name || 'Unknown'}</Text>
-            <Text style={styles.tableCol}>{userNames[score.userId]?.mobile || 'Unknown'}</Text>
-            <Text style={styles.tableCol}>{score.activity}</Text>
+            <Text style={{width:'10%', fontSize:"10px"
+
+}}>{userNames[score.userId]?.mobile || 'Unknown'}</Text>
+            <Text style={{width:'10%', fontSize:"10px",  textAlign: 'center', marginLeft:'8px'
+
+}}>{score.activity}</Text>
             <Text style={styles.tableCol}>{score.totalQuestions}</Text>
             <Text style={styles.tableCol}>{score.correctAnswers}</Text>
             <Text style={styles.tableCol}>{score.duration}</Text>

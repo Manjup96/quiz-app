@@ -152,6 +152,7 @@ const Scores = () => {
             className="score-search-input"
           />
           <PDFDownloadLink
+          className='scores_pdf'
             document={<ScoresPDF scores={currentScores} userNames={userNames} />}
             fileName="scores.pdf"
           >
