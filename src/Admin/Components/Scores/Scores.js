@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Sidebar from '../../../Admin/Components/Sidebar/Sidebar';
 import Header from '../../../Admin/Components/Header/Header';
 import { useAuth } from '../../../Components/Context/AuthContext';
 import { db } from '../../../Components/Firebase/FirebaseConfig';
+import { Pagination, Modal, Button } from 'react-bootstrap'; // Import necessary components
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import ScoresPDF from './generatePDF'; // Adjust the path accordingly
 import '../../../Styles/Components/Scores.css';
-import { Pagination, Modal, Button } from "react-bootstrap"; // Import necessary components
 
 const Scores = () => {
   const { user } = useAuth();
   const [scores, setScores] = useState([]);
   const [userNames, setUserNames] = useState({}); // Store user names and student IDs with ID as key
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [pageSize, setPageSize] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [showModal, setShowModal] = useState(false);
@@ -27,7 +29,7 @@ const Scores = () => {
         }));
 
         // Flatten all scores into a single array and add userId to each score
-        const allScores = scoresData.flatMap(scoreDoc => 
+        const allScores = scoresData.flatMap(scoreDoc =>
           (scoreDoc.scores || []).map(score => ({
             ...score,
             userId: scoreDoc.id
@@ -55,7 +57,7 @@ const Scores = () => {
         const userPromises = userIds.map(id =>
           db.collection('users').doc(id).get().then(userDoc => {
             if (userDoc.exists) {
-              console.log(`Fetched user ${id}:`, userDoc.data());
+              console.log(`Fetched user ${id}:, userDoc.data()`);
               return { id: id, name: userDoc.data().name, studentId: userDoc.data().id, mobile: userDoc.data().mobile };
             } else {
               console.warn(`No user found for ID ${id}`);
@@ -149,6 +151,13 @@ const Scores = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
             className="score-search-input"
           />
+          <PDFDownloadLink
+          className='scores_pdf'
+            document={<ScoresPDF scores={currentScores} userNames={userNames} />}
+            fileName="scores.pdf"
+          >
+            {({ loading }) => (loading ? 'Loading document...' : 'Download PDF')}
+          </PDFDownloadLink>
         </div>
         <div className='table-main'>
           <table className='score_table_main'>
@@ -199,39 +208,37 @@ const Scores = () => {
 
       {/* Modal for displaying questionScores */}
       <Modal show={showModal} onHide={() => setShowModal(false)}>
-  <Modal.Header closeButton>
-    <Modal.Title>Question Scores</Modal.Title>
-  </Modal.Header>
-  <Modal.Body>
-  <table className="table">
-    <thead>
-      <tr>
-        {selectedQuestionScores.map((q, index) => (
-          <th key={index}>Question {q.questionNumber}</th>
-        ))}
-        <th>Total</th> {/* Column for total */}
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        {selectedQuestionScores.map((q, index) => (
-          <td key={index}>{q.score}</td>
-        ))}
-        <td>
-          {selectedQuestionScores.reduce((sum, q) => sum + q.score, 0)} / {selectedQuestionScores.length}
-        </td> {/* Total count */}
-      </tr>
-    </tbody>
-  </table>
-</Modal.Body>
-
-  <Modal.Footer>
-    <Button variant="secondary" onClick={() => setShowModal(false)}>
-      Close
-    </Button>
-  </Modal.Footer>
-</Modal>
-
+        <Modal.Header closeButton>
+          <Modal.Title>Question Scores</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <table className="table">
+            <thead>
+              <tr>
+                {selectedQuestionScores.map((q, index) => (
+                  <th key={index}>Question {q.questionNumber}</th>
+                ))}
+                <th>Total</th> {/* Column for total */}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                {selectedQuestionScores.map((q, index) => (
+                  <td key={index}>{q.score}</td>
+                ))}
+                <td>
+                  {selectedQuestionScores.reduce((sum, q) => sum + q.score, 0)} / {selectedQuestionScores.length}
+                </td> {/* Total count */}
+              </tr>
+            </tbody>
+          </table>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
