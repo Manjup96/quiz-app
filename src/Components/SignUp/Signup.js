@@ -30,7 +30,7 @@ const SignUp = () => {
       const counterDoc = await db.collection('counters').doc('userCounter').get();
       const currentCounter = counterDoc.exists ? counterDoc.data().current : 0;
       const newCounter = currentCounter + 1;
-      const newUserId = `std${newCounter}`;
+      const newUserId = `STD00${newCounter}`;
 
       // Update the counter in Firestore
       await db.collection('counters').doc('userCounter').set({ current: newCounter });
