@@ -160,7 +160,7 @@ const Scores = () => {
           >
                {({ loading }) => (
       <button className="scores_pdf">
-        {loading ? 'Loading document...' : 'Download PDF'}
+        Download PDF
       </button>
     )}
 
