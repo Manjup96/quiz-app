@@ -7,7 +7,7 @@ import {  faEye, faEyeSlash, faInfoCircle } from '@fortawesome/free-solid-svg-ic
 import { auth, db } from '../Firebase/FirebaseConfig';
 import { useAuth } from '../Context/AuthContext';
 import logo from '../Img/main-logo.png';
-import '../../Styles/Components/Login.css';
+import '../../Styles/Login.css';
 
 const Login = () => {
   const navigate = useNavigate();

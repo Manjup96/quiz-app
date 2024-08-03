@@ -3,7 +3,7 @@ import Sidebar from '../../../Admin/Components/Sidebar/Sidebar';
 import Header from '../../../Admin/Components/Header/Header';
 import { useAuth } from '../../../Components/Context/AuthContext';
 import { db, auth } from '../../../Components/Firebase/FirebaseConfig'; // Import auth as well
-import '../../../Styles/Components/AdminUser.css'; // Import the CSS file
+import '../../../Styles/AdminUser.css'; // Import the CSS file
 
 const User = () => {
   const { user } = useAuth();

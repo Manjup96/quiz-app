@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { faBars, faTachometerAlt, faUsers, faUserCog, faChartBar, faFileAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
-import '../../../Styles/Components/Sidebar.css';
+import '../../../Styles/Sidebar.css';
 import { useAuth } from '../../../Components/Context/AuthContext';
 
 const Sidebar = () => {

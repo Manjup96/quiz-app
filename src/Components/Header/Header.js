@@ -1,7 +1,7 @@
 import React from 'react'
 
 import company_logo from "../Img/Company_logo.png" ; 
-import '../Styles/Header.css';
+import '../../Styles/Header.css';
 import Logout from '../Logout/Logout';
 
 const Header = () => {

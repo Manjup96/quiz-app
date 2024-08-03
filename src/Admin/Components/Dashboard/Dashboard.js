@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../../Components/Context/AuthContext';
 import Header from '../../../Admin/Components/Header/Header';
-import '../../../Styles/Components/AdminDashboard.css';
+import '../../../Styles/AdminDashboard.css';
 import Sidebar from '../../../Admin/Components/Sidebar/Sidebar';
 import { db } from '../../../Components/Firebase/FirebaseConfig'; // Adjust the import path according to your project structure
 

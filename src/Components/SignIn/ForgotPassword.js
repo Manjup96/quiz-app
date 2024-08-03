@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { Tooltip } from 'react-tooltip'; // Import Tooltip
 import 'react-tooltip/dist/react-tooltip.css'; // Import Tooltip CSS
-import '../Styles/ForgotPassword.css';
+import '../../Styles/ForgotPassword.css';
 
 const ForgotPassword = () => {
   const navigate = useNavigate();

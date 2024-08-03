@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../Firebase/FirebaseConfig';
 import logo from '../Img/main-logo.png';
-import '../../Styles/Components/VerifyOTP.css';
+import '../../Styles/VerifyOTP.css';
 
 
 
