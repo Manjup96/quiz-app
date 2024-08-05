@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import Sidebar from '../../../Admin/Components/Sidebar/Sidebar'; 
 import Header from '../../../Admin/Components/Header/Header';
 import { useAuth } from '../../../Components/Context/AuthContext';
-import { db, auth } from '../../../Components/Firebase/FirebaseConfig'; // Import auth as well
-import '../../../Styles/AdminUser.css'; // Import the CSS file
+import { db, auth } from '../../../Components/Firebase/FirebaseConfig'; 
+import { getDocs, collection, deleteDoc, doc, updateDoc } from 'firebase/firestore';
+import { updateEmail, updatePassword, reauthenticateWithCredential, EmailAuthProvider, deleteUser } from 'firebase/auth';
+import { Modal, Button, Form } from 'react-bootstrap';
+import '../../../Styles/AdminUser.css'; 
 
 const User = () => {
   const { user } = useAuth();
@@ -12,14 +15,18 @@ const User = () => {
   const [updatedUser, setUpdatedUser] = useState({
     name: '',
     email: '',
-    mobile: ''
+    mobile: '',
+    password: ''
   });
   const [isEditing, setIsEditing] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [errorMsg, setErrorMsg] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
 
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const usersCollection = await db.collection('users').get();
+        const usersCollection = await getDocs(collection(db, 'users'));
         const usersData = usersCollection.docs.map(doc => ({
           id: doc.id,
           ...doc.data()
@@ -33,34 +40,26 @@ const User = () => {
     fetchUserDetails();
   }, []);
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (userId) => {
+    const confirmation = window.confirm("Are you sure you want to delete this user?");
+    if (!confirmation) {
+      return; // User cancelled the deletion
+    }
+  
     try {
-      // Delete the user from Firestore
-      await db.collection('users').doc(id).delete();
-
-      // If logged in with an admin account, delete the user from Firebase Authentication
-      if (auth.currentUser && auth.currentUser.uid === id) {
-        await auth.currentUser.delete();
+      await deleteDoc(doc(db, 'users', userId));
+  
+      const user = auth.currentUser;
+      if (user && user.uid === userId) {
+        await deleteUser(user);
       }
-
-      // Update the local state to remove the deleted user
-      setUsers(users.filter(user => user.uid !== id));
-      console.log(`User with ID: ${id} deleted successfully`);
+  
+      setUsers(prevUsers => prevUsers.filter(user => user.id !== userId));
     } catch (error) {
-      console.error("Error deleting user: ", error);
+      console.error('Error deleting user:', error);
     }
   };
-
-  const handleUpdate = (userId) => {
-    const userToEdit = users.find(user => user.uid === userId);
-    setEditingUser(userToEdit);
-    setUpdatedUser({
-      name: userToEdit.name,
-      email: userToEdit.email,
-      mobile: userToEdit.mobile
-    });
-    setIsEditing(true);
-  };
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -70,24 +69,59 @@ const User = () => {
     }));
   };
 
+  const handleUpdate = (userId) => {
+    const userToEdit = users.find(user => user.id === userId);
+    setEditingUser(userToEdit);
+    setUpdatedUser({
+      name: userToEdit.name,
+      email: userToEdit.email,
+      mobile: userToEdit.mobile,
+      password: '' // Password will be updated separately
+    });
+    setIsEditing(true);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErrorMsg('');
+    setSuccessMsg('');
+
     try {
-      await db.collection('users').doc(editingUser.uid).update(updatedUser);
-      const updatedUsers = users.map(user =>
-        user.id === editingUser.uid ? { ...user, ...updatedUser } : user
-      );
-      setUsers(updatedUsers);
-      setIsEditing(false);
-      setEditingUser(null);
-      setUpdatedUser({
-        name: '',
-        email: '',
-        mobile: ''
+      const userDocRef = doc(db, 'users', editingUser.id);
+
+      // Update Firestore
+      await updateDoc(userDocRef, {
+        name: updatedUser.name,
+        email: updatedUser.email,
+        mobile: updatedUser.mobile
       });
-      console.log(`User with ID: ${editingUser.id} updated successfully`);
+
+      // Update Firebase Auth email
+      if (auth.currentUser.email !== updatedUser.email) {
+        await updateEmail(auth.currentUser, updatedUser.email);
+      }
+
+      // Update Firebase Auth password if provided
+      if (updatedUser.password) {
+        const credential = EmailAuthProvider.credential(auth.currentUser.email, currentPassword);
+        await reauthenticateWithCredential(auth.currentUser, credential);
+        await updatePassword(auth.currentUser, updatedUser.password);
+      }
+
+      setUsers(prevUsers =>
+        prevUsers.map(user =>
+          user.id === editingUser.id
+            ? { ...user, name: updatedUser.name, email: updatedUser.email, mobile: updatedUser.mobile }
+            : user
+        )
+      );
+
+      setSuccessMsg('User updated successfully.');
+      setIsEditing(false);
+      setCurrentPassword('');
     } catch (error) {
-      console.error("Error updating user: ", error);
+      console.error('Error updating user:', error);
+      setErrorMsg('Failed to update the user. Please try again.');
     }
   };
 
@@ -113,7 +147,7 @@ const User = () => {
               {users.map((user, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
-                  <td>{user.id}</td>
+                  <td>{user.std}</td>
                   <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td>{user.mobile}</td>
@@ -121,12 +155,12 @@ const User = () => {
                     <i 
                       className="fa-solid fa-edit"
                       onClick={() => handleUpdate(user.id)}
-                      style={{ cursor: 'pointer', marginRight: '10px', color:'blue' }}
+                      style={{ cursor: 'pointer', marginRight: '10px', color: 'blue' }}
                     ></i>
                     <i 
                       className="fa-solid fa-trash-alt"
                       onClick={() => handleDelete(user.id)}
-                      style={{ cursor: 'pointer', color:'red'}}
+                      style={{ cursor: 'pointer', color: 'red' }}
                     ></i>
                   </td>
                 </tr>
@@ -134,45 +168,73 @@ const User = () => {
             </tbody>
           </table>
         </div>
-        {isEditing && (
-          <div className="update-form">
-            <h2>Update User</h2>
-            <form onSubmit={handleSubmit}>
-              <label>
-                Name:
-                <input
+
+        <Modal show={isEditing} onHide={() => setIsEditing(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Update User</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group controlId="formName">
+                <Form.Label>Name</Form.Label>
+                <Form.Control
                   type="text"
                   name="name"
                   value={updatedUser.name}
                   onChange={handleChange}
                   required
                 />
-              </label>
-              <label>
-                Email:
-                <input
+              </Form.Group>
+              <Form.Group controlId="formEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
                   type="email"
                   name="email"
                   value={updatedUser.email}
                   onChange={handleChange}
                   required
                 />
-              </label>
-              <label>
-                Mobile:
-                <input
+              </Form.Group>
+              <Form.Group controlId="formMobile">
+                <Form.Label>Mobile</Form.Label>
+                <Form.Control
                   type="text"
                   name="mobile"
                   value={updatedUser.mobile}
                   onChange={handleChange}
                   required
                 />
-              </label>
-              <button type="submit">Update</button>
-              <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
-            </form>
-          </div>
-        )}
+              </Form.Group>
+              <Form.Group controlId="formCurrentPassword">
+                <Form.Label>Current Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  name="currentPassword"
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
+                  required
+                />
+              </Form.Group>
+              <Form.Group controlId="formNewPassword">
+                <Form.Label>New Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  name="password"
+                  value={updatedUser.password}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              {errorMsg && <div className="text-danger">{errorMsg}</div>}
+              {successMsg && <div className="text-success">{successMsg}</div>}
+              <Button variant="primary" type="submit">
+                Update
+              </Button>
+              <Button variant="secondary" onClick={() => setIsEditing(false)}>
+                Cancel
+              </Button>
+            </Form>
+          </Modal.Body>
+        </Modal>
       </div>
     </div>
   );
