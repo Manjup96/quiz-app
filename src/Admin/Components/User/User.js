@@ -44,7 +44,7 @@ const User = () => {
       }
 
       // Update the local state to remove the deleted user
-      setUsers(users.filter(user => user.id !== id));
+      setUsers(users.filter(user => user.uid !== id));
       console.log(`User with ID: ${id} deleted successfully`);
     } catch (error) {
       console.error("Error deleting user: ", error);
@@ -52,7 +52,7 @@ const User = () => {
   };
 
   const handleUpdate = (userId) => {
-    const userToEdit = users.find(user => user.id === userId);
+    const userToEdit = users.find(user => user.uid === userId);
     setEditingUser(userToEdit);
     setUpdatedUser({
       name: userToEdit.name,
@@ -73,9 +73,9 @@ const User = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await db.collection('users').doc(editingUser.id).update(updatedUser);
+      await db.collection('users').doc(editingUser.uid).update(updatedUser);
       const updatedUsers = users.map(user =>
-        user.id === editingUser.id ? { ...user, ...updatedUser } : user
+        user.id === editingUser.uid ? { ...user, ...updatedUser } : user
       );
       setUsers(updatedUsers);
       setIsEditing(false);

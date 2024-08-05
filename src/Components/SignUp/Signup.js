@@ -26,18 +26,18 @@ const SignUp = () => {
     setError('');
 
     try {
-      // Get the current counter value
-      const counterDoc = await db.collection('counters').doc('userCounter').get();
-      const currentCounter = counterDoc.exists ? counterDoc.data().current : 0;
-      const newCounter = currentCounter + 1;
-      const newUserId = `STD00${newCounter}`;
-
-      // Update the counter in Firestore
-      await db.collection('counters').doc('userCounter').set({ current: newCounter });
-
       // Create the user with Firebase Authentication
       const userCredential = await auth.createUserWithEmailAndPassword(email, password);
       const user = userCredential.user;
+
+      // Get the current counter value and update the counter in Firestore
+      const counterDoc = await db.collection('counters').doc('userCounter').get();
+      const currentCounter = counterDoc.exists ? counterDoc.data().current : 0;
+      const newCounter = currentCounter + 1;
+      await db.collection('counters').doc('userCounter').set({ current: newCounter });
+
+      // Generate a new user ID
+      const newUserId = `STD00${newCounter}`;
 
       // Save user data to Firestore with the new ID
       await db.collection('users').doc(user.uid).set({
@@ -45,7 +45,6 @@ const SignUp = () => {
         name,
         email,
         mobile,
-        password,
         createdAt: new Date(),
       });
 
