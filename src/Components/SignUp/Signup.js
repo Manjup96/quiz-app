@@ -4,7 +4,23 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import logo from "../Img/main-logo.png"; 
-import '../../Styles/SignUp.css';
+import {
+  createUserWithEmailAndPassword,
+  deleteUser,
+  updateEmail,
+  updatePassword,
+  reauthenticateWithCredential,
+  EmailAuthProvider
+} from 'firebase/auth';
+import {
+  setDoc,
+  doc,
+  collection,
+  getDocs,
+  deleteDoc,
+  updateDoc
+} from 'firebase/firestore';
+import "./../../Styles/SignUp.css"
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -15,6 +31,7 @@ const SignUp = () => {
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [users, setUsers] = useState([]);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -26,28 +43,19 @@ const SignUp = () => {
     setError('');
 
     try {
-      // Create the user with Firebase Authentication
-      const userCredential = await auth.createUserWithEmailAndPassword(email, password);
-      const user = userCredential.user;
 
-      // Get the current counter value and update the counter in Firestore
       const counterDoc = await db.collection('counters').doc('userCounter').get();
       const currentCounter = counterDoc.exists ? counterDoc.data().current : 0;
       const newCounter = currentCounter + 1;
+      const newUserId = `std${newCounter}`;
       await db.collection('counters').doc('userCounter').set({ current: newCounter });
+      
 
-      // Generate a new user ID
-      const newUserId = `STD00${newCounter}`;
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      await setDoc(doc(db, 'users', user.uid), { std: newUserId, name, email,password,mobile, createdAt: new Date(), });
 
-      // Save user data to Firestore with the new ID
-      await db.collection('users').doc(user.uid).set({
-        id: newUserId,
-        name,
-        email,
-        mobile,
-        createdAt: new Date(),
-      });
-
+      setUsers(prevUsers => [...prevUsers, { id: user.uid, std: newUserId, name, email,password,mobile, createdAt: new Date(), }]);
       setName('');
       setEmail('');
       setPassword('');
@@ -63,6 +71,10 @@ const SignUp = () => {
       setIsSubmitting(false);
     }
   };
+
+
+
+ 
 
   const canSubmit = email.trim() !== '' && password.trim() !== '' && mobile.trim() !== '';
 
