@@ -1,0 +1,81 @@
+import React, { useEffect, useState } from 'react';
+import { db } from '../../Components/Firebase/FirebaseConfig';
+import '../../Styles/LeaderBoard.css';
+
+const LeaderBoard = () => {
+  const [scores, setScores] = useState([]);
+  const [userNames, setUserNames] = useState({});
+
+  useEffect(() => {
+    const fetchScoresDetails = async () => {
+      try {
+        const scoresCollection = await db.collection('score').get();
+        const scoresData = scoresCollection.docs.map(doc => ({
+          id: doc.id,
+          scores: doc.data().scores || []
+        }));
+
+        const allScores = scoresData.flatMap(scoreDoc =>
+          (scoreDoc.scores || []).map(score => ({
+            ...score,
+            userId: scoreDoc.id
+          }))
+        );
+
+        allScores.sort((a, b) => b.correctAnswers - a.correctAnswers); // Sort by highest score
+
+        setScores(allScores.slice(0, 3)); // Display only the top 3 scores
+
+        const userIds = Array.from(new Set(allScores.map(score => score.userId)));
+
+        const userPromises = userIds.map(id =>
+          db.collection('users').doc(id).get().then(userDoc => {
+            if (userDoc.exists) {
+              return { id: id, name: userDoc.data().name, studentId: userDoc.data().id, mobile: userDoc.data().mobile };
+            } else {
+              return { id: id, name: 'Unknown', studentId: 'Unknown' };
+            }
+          })
+        );
+
+        const usersData = await Promise.all(userPromises);
+        const usersMap = usersData.reduce((acc, user) => {
+          acc[user.id] = { name: user.name, studentId: user.studentId, mobile: user.mobile };
+          return acc;
+        }, {});
+
+        setUserNames(usersMap);
+
+      } catch (error) {
+        console.error("Error fetching Scores or Users:", error);
+      }
+    };
+
+    fetchScoresDetails();
+  }, []);
+
+  return (
+    <div className="leaderboard-container">
+      <h2 className='leaderboard-heading'>Weekly Leaderboard</h2>
+      <p className='leaderboard-subheading'>Refreshes every Monday.</p>
+      <div className='cards-container'>
+        {scores.map((score, index) => (
+          <div className='score-card' key={`${score.userId}-${index}`}>
+            <div className='score-card-rank'> {index + 1} </div>
+            <div className='score-card-avatar'>
+              <div className='avatar-circle'>
+                {userNames[score.userId]?.name.split(' ').map(n => n[0]).join('')}
+              </div>
+            </div>
+            <div className='score-card-content'>
+              <p className='score-card-name'>{userNames[score.userId]?.name || 'Unknown'}</p>
+              <p className='score-card-points'>{score.correctAnswers} pts</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default LeaderBoard;

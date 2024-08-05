@@ -16,7 +16,9 @@ import ForgotPassword from "./Components/SignIn/ForgotPassword";
 import Website from "./Components/Website/website"
 import User from "../src/Admin/Components/User/User";
 import ManageUsers from "../src/Admin/Components/ManageUsers/ManageUsers"
-import Score from "../src/Admin/Components/Scores/Scores"
+import Score from "../src/Admin/Components/Scores/Scores";
+import LeaderBoard from "./Components/Cohort/LeaderBoard";
+
 
 
 const queryClient = new QueryClient();
@@ -40,6 +42,8 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/website" element={<Website />} />
         <Route path="/scores" element={<Score />} />
+        <Route path="/leaderboard" element={<LeaderBoard />} />
+
 
       </Routes>
     </BrowserRouter>
