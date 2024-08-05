@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { auth, db } from '../../../Components/Firebase/FirebaseConfig';
 import { useAuth } from '../../../Components/Context/AuthContext';
-import "../../../Styles/Components/AdminLogin.css";
+import "../../../Styles/AdminLogin.css";
 import logo from '../../../Admin/Components/Img/FoELogo_105x57 (1).png'; // Corrected path
 
 const Login = () => {

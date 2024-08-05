@@ -6,7 +6,7 @@ import { db } from '../../../Components/Firebase/FirebaseConfig';
 import { Pagination, Modal, Button } from 'react-bootstrap'; // Import necessary components
 import { PDFDownloadLink } from '@react-pdf/renderer';
 import ScoresPDF from './generatePDF'; // Adjust the path accordingly
-import '../../../Styles/Components/Scores.css';
+import '../../../Styles/Scores.css';
 
 const Scores = () => {
   const { user } = useAuth();
@@ -160,7 +160,7 @@ const Scores = () => {
           >
                {({ loading }) => (
       <button className="scores_pdf">
-        {loading ? 'Loading document...' : 'Download PDF'}
+        Download PDF
       </button>
     )}
 

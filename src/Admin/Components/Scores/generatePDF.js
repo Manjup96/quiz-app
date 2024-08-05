@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 5,
     fontFamily: 'Roboto',
-    textAlign:'center'
+    textAlign: 'center'
   },
   tableHeader: {
     backgroundColor: '#4CAF50',
@@ -49,43 +49,47 @@ const ScoresPDF = ({ scores, userNames }) => (
       <View style={styles.section}>
         <Text style={styles.header}>Score Details</Text>
         <View style={styles.tableHeader}>
-          <Text style={{width:'8%', fontSize:"10px",  textAlign: 'center',
+          <Text style={{
+            width: '8%', fontSize: "10px", textAlign: 'center',
 
- }}>S.No</Text>
+          }}>S.No</Text>
           <Text style={styles.tableCol}>Student ID</Text>
           <Text style={styles.tableCol}>Name</Text>
           <Text style={styles.tableCol}>Mobile</Text>
-          <Text style={{width:'10%', fontSize:"10px",  textAlign: 'right',
+          <Text style={{
+            width: '10%', fontSize: "10px", textAlign: 'right',
 
-}}>Activity</Text>
-          <Text style={{width:'10%', fontSize:"10px", textAlign: 'center', marginLeft:'5px'
-
-}}>Total Questions</Text>
+          }}>Activity</Text>
+          <Text style={{
+            width: '10%', fontSize: "10px", textAlign: 'center', marginLeft: '5px'}}>Total Questions</Text>
           <Text style={styles.tableCol}>Correct Answers</Text>
           <Text style={styles.tableCol}>Duration</Text>
-          <Text style={styles.tableCol}>Date</Text>
-          <Text style={styles.tableCol}>Start Time</Text>
-          <Text style={styles.tableCol}>End Time</Text>
+          <Text style={{ width: '12%', fontSize: "10px", textAlign: 'center', marginLeft: "-3px" }}>Date</Text>
+          <Text style={{ width: '12%', fontSize: "10px", textAlign: 'center'}}>Start Time</Text>
+          <Text style={{ width: '12%', fontSize: "10px", textAlign: 'center' }}>End Time</Text>
         </View>
         {scores.map((score, index) => (
           <View key={`${score.userId}-${index}`} style={styles.tableRow}>
-            <Text style={{width:'8%', fontSize:"10px",  textAlign: 'center',
+            <Text style={{
+              width: '8%', fontSize: "10px", textAlign: 'center',
 
-}}>{index + 1}</Text>
+            }}>{index + 1}</Text>
             <Text style={styles.tableCol}>{userNames[score.userId]?.studentId || 'Unknown'}</Text>
             <Text style={styles.tableCol}>{userNames[score.userId]?.name || 'Unknown'}</Text>
-            <Text style={{width:'10%', fontSize:"10px"
+            <Text style={{
+              width: '10%', fontSize: "10px"
 
-}}>{userNames[score.userId]?.mobile || 'Unknown'}</Text>
-            <Text style={{width:'10%', fontSize:"10px",  textAlign: 'center', marginLeft:'8px'
+            }}>{userNames[score.userId]?.mobile || 'Unknown'}</Text>
+            <Text style={{
+              width: '10%', fontSize: "10px", textAlign: 'center', marginLeft: '8px'
 
-}}>{score.activity}</Text>
+            }}>{score.activity}</Text>
             <Text style={styles.tableCol}>{score.totalQuestions}</Text>
             <Text style={styles.tableCol}>{score.correctAnswers}</Text>
             <Text style={styles.tableCol}>{score.duration}</Text>
-            <Text style={styles.tableCol}>{score.date}</Text>
+            <Text style={{width: '12%', fontSize: "10px", textAlign: 'center', marginLeft: '-5px'}}>{score.date}</Text>
             <Text style={styles.tableCol}>{score.startTime}</Text>
-            <Text style={styles.tableCol}>{score.endTime}</Text>
+            <Text style={{width: '10%', fontSize: "10px", textAlign: 'center', marginLeft: '5px'}}>{score.endTime}</Text>
           </View>
         ))}
       </View>
