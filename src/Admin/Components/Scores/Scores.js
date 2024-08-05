@@ -27,15 +27,15 @@ const Scores = () => {
           id: doc.id,
           scores: doc.data().scores || []
         }));
-
+  
         // Flatten all scores into a single array and add userId to each score
-        const allScores = scoresData.flatMap(scoreDoc =>
+        const allScores = scoresData.flatMap(scoreDoc => 
           (scoreDoc.scores || []).map(score => ({
             ...score,
             userId: scoreDoc.id
           }))
         );
-
+  
         // Sort the scores by date and startTime in descending order
         allScores.sort((a, b) => {
           const dateA = new Date(a.date);
@@ -46,40 +46,40 @@ const Scores = () => {
           if (a.startTime < b.startTime) return 1;
           return 0;
         });
-
+  
         setScores(allScores);
-
+  
         // Collect unique user IDs from sorted scores
         const userIds = Array.from(new Set(allScores.map(score => score.userId)));
         console.log("User IDs to fetch:", userIds);
-
+  
         // Fetch user names and student IDs based on user IDs
         const userPromises = userIds.map(id =>
           db.collection('users').doc(id).get().then(userDoc => {
             if (userDoc.exists) {
-              console.log(`Fetched user ${id}:, userDoc.data()`);
-              return { id: id, name: userDoc.data().name, studentId: userDoc.data().id, mobile: userDoc.data().mobile };
+              console.log(`Fetched user ${id}:`, userDoc.data());
+              return { id: id, name: userDoc.data().name, studentId: userDoc.data().id, mobile:userDoc.data().mobile  };
             } else {
               console.warn(`No user found for ID ${id}`);
               return { id: id, name: 'Unknown', studentId: 'Unknown' };
             }
           })
         );
-
+  
         const usersData = await Promise.all(userPromises);
         const usersMap = usersData.reduce((acc, user) => {
-          acc[user.id] = { name: user.name, studentId: user.studentId, mobile: user.mobile };
+          acc[user.id] = { name: user.name, studentId: user.studentId, mobile:user.mobile  };
           return acc;
         }, {});
-
+  
         console.log("User names and student IDs map:", usersMap);
         setUserNames(usersMap);
-
+  
       } catch (error) {
         console.error("Error fetching Scores or Users:", error);
       }
     };
-
+  
     fetchScoresDetails();
   }, []);
 
@@ -160,7 +160,7 @@ const Scores = () => {
           >
                {({ loading }) => (
       <button className="scores_pdf">
-        Download PDF
+        {loading ? 'Loading document...' : 'Download PDF'}
       </button>
     )}
 
