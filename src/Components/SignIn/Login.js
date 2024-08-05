@@ -49,7 +49,7 @@ const Login = () => {
         // Add any other user data you need
       });
 
-      navigate('/website');
+      navigate('/dashboard');
     } catch (err) {
       setError('Invalid email or password. Please try again.');
     } finally {
