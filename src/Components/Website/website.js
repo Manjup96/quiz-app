@@ -7,7 +7,7 @@ const Website = () => {
     console.log("User data:", user);
 
     // Default URL with placeholders for the user's name and uid
-    const defaultUrl = 'https://iiiqbets.com/quizhtml_app/';
+    const defaultUrl = 'http://127.0.0.1:5501/index.html';
 
     // Use the user's name and uid if available, otherwise fallback to 'user' and 'unknown'
     const userName = user?.name || 'user';
