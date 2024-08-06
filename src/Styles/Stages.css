@@ -58,7 +58,7 @@
   position: relative;
   overflow: hidden;
   width: 52%;
-  margin-top: 67px;
+  margin-top: 150px;
   margin-left: 78px;
 }
 
@@ -111,3 +111,23 @@
   transform: translateX(-50%);
   z-index: -1;
 }
+
+
+@media (max-width: 767px) {
+
+.card-container {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  position: relative;
+  overflow: hidden;
+  width: 80%;
+  margin-top: 67px;
+  margin-left: 40px;
+}
+}
+
+
+

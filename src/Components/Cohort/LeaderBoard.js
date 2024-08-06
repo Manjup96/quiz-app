@@ -5,6 +5,7 @@ import '../../Styles/LeaderBoard.css';
 const LeaderBoard = () => {
   const [scores, setScores] = useState([]);
   const [userNames, setUserNames] = useState({});
+  const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
     const fetchScoresDetails = async () => {
@@ -31,7 +32,7 @@ const LeaderBoard = () => {
           return b.correctAnswers - a.correctAnswers; // Sort by highest score
         });
 
-        setScores(allScores.slice(0, 3)); // Display only the top 3 scores
+        setScores(allScores); // Store all scores
 
         const userIds = Array.from(new Set(allScores.map(score => score.userId)));
 
@@ -61,12 +62,14 @@ const LeaderBoard = () => {
     fetchScoresDetails();
   }, []);
 
+  const displayedScores = showAll ? scores : scores.slice(0, 3);
+
   return (
     <div className="leaderboard-container">
       <h2 className='leaderboard-heading'>Weekly Leaderboard</h2>
       <p className='leaderboard-subheading'>Refreshes every Monday.</p>
       <div className='cards-container'>
-        {scores.map((score, index) => (
+        {displayedScores.map((score, index) => (
           <div className='score-card' key={`${score.userId}-${index}`}>
             <div className='score-card-rank'> {index + 1} </div>
             <div className='score-card-avatar'>
@@ -80,6 +83,18 @@ const LeaderBoard = () => {
             </div>
           </div>
         ))}
+      </div>
+      <div className='toggle-button-container'>
+        {!showAll && scores.length > 3 && (
+          <button className='toggle-button' onClick={() => setShowAll(true)}>
+            Read More...
+          </button>
+        )}
+        {showAll && (
+          <button className='toggle-button' onClick={() => setShowAll(false)}>
+            Read Less
+          </button>
+        )}
       </div>
     </div>
   );
