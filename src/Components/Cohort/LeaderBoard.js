@@ -18,11 +18,18 @@ const LeaderBoard = () => {
         const allScores = scoresData.flatMap(scoreDoc =>
           (scoreDoc.scores || []).map(score => ({
             ...score,
-            userId: scoreDoc.id
+            userId: scoreDoc.id,
+            startTime: score.startTime || new Date().getTime() // Ensure we have a start time
           }))
         );
 
-        allScores.sort((a, b) => b.correctAnswers - a.correctAnswers); // Sort by highest score
+        // Sort by highest score and then by recent start time
+        allScores.sort((a, b) => {
+          if (b.correctAnswers === a.correctAnswers) {
+            return b.startTime - a.startTime; // Sort by recent start time if scores are the same
+          }
+          return b.correctAnswers - a.correctAnswers; // Sort by highest score
+        });
 
         setScores(allScores.slice(0, 3)); // Display only the top 3 scores
 
