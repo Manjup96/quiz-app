@@ -60,10 +60,6 @@ function Stages() {
             <div className="passage-structure">
                <div className="passage-row">
               {passages[stage].map((passage, idx) => (
-                // <div className="passage-item" key={idx}>
-                //   <button onClick={() => handlePassageClick(passage.name)}>{passage.name}</button>
-                //   <img src={passage.img} alt={passage.name} />
-                // </div>
                  <div className="passage-item" key={index} onClick={() => handlePassageClick(passage.name)}>
                  <img src={passage.img} alt={passage.name} />
                  {index < passages[stage].length - 1 && <div className="connection-line"></div>}
