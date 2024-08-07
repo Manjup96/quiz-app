@@ -89,3 +89,21 @@
   margin-left: 172%;
   margin-top: 17px;
 }
+
+@media only screen and (max-width: 767px){
+
+.sidebar .sidebar-toggle .toggle-icon {
+  font-size: 1.10em;
+  margin-left: -110px;
+
+        margin-top: -130px;
+    }
+.company-logo-admin {
+  height: 45px;
+  width: 70px;
+  margin-left: -8px;
+}
+.englishheading {
+  margin-left: 418px;
+}
+}
