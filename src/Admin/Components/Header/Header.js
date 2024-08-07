@@ -10,7 +10,7 @@ const Header = () => {
     <div>
       <div className="headeradmin">
       <img src={company_logo} alt="" className="company-logo-admin"/>
-      <h5><span className='flowhead-admin'>Flow Of English</span> - <span className='learnerhead-admin'>Learner</span></h5>
+      <h5 className='englishheading'><span className='flowhead-admin'>Flow Of English</span> - <span className='learnerhead-admin'>Learner</span></h5>
       <img src={chipper_sage_logo} alt="" className="chipper-logo"/>
       <div className="logout-button">
         <Logout />
