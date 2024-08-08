@@ -92,9 +92,12 @@
 .headeradmin
 .chipper-logo {
   height: 50px;
-  width: 140px;
+  width: 92px;
   margin-left: -385px;
 }
-
+.englishheading {
+  margin-left: 37px;
+  font-size: 17px;
+}
 
 }
