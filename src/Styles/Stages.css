@@ -131,3 +131,14 @@
 
 
 
+.passage-item.inactive img {
+  filter: grayscale(60%); /* Converts the image to grayscale */
+  opacity: 0.5; /* Makes the image semi-transparent */
+  pointer-events: none; /* Makes the image non-clickable */
+}
+
+.passage-item.active img {
+  filter: none; /* Ensures the active image is fully colored */
+  opacity: 1; /* Fully visible */
+  pointer-events: auto; /* Clickable */
+}
