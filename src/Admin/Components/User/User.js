@@ -256,7 +256,7 @@ const User = () => {
                   name="name"
                   value={updatedUser.name}
                   onChange={handleChange}
-                  required
+                
                 />
               </Form.Group>
               <Form.Group controlId="formEmail">
@@ -266,7 +266,7 @@ const User = () => {
                   name="email"
                   value={updatedUser.email}
                   onChange={handleChange}
-                  required
+                  readOnly
                 />
               </Form.Group>
               <Form.Group controlId="formMobile">
@@ -276,11 +276,11 @@ const User = () => {
                   name="mobile"
                   value={updatedUser.mobile}
                   onChange={handleChange}
-                  required
+                 
                 />
               </Form.Group>
               <Form.Group controlId="formPassword">
-                <Form.Label>Password (leave blank to keep current password)</Form.Label>
+                <Form.Label>Password</Form.Label>
                 <Form.Control
                   type="password"
                   name="password"
@@ -289,7 +289,7 @@ const User = () => {
                 />
               </Form.Group>
               <Form.Group controlId="formCurrentPassword">
-                <Form.Label>Current Password (required to change email/password)</Form.Label>
+                <Form.Label>Current Password</Form.Label>
                 <Form.Control
                   type="password"
                   name="currentPassword"
