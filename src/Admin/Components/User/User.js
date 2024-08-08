@@ -279,22 +279,22 @@ const User = () => {
                   required
                 />
               </Form.Group>
-              <Form.Group controlId="formPassword">
-                <Form.Label>Password (leave blank to keep current password)</Form.Label>
-                <Form.Control
-                  type="password"
-                  name="password"
-                  value={updatedUser.password}
-                  onChange={handleChange}
-                />
-              </Form.Group>
               <Form.Group controlId="formCurrentPassword">
-                <Form.Label>Current Password (required to change email/password)</Form.Label>
+                <Form.Label>Current Password </Form.Label>
                 <Form.Control
                   type="password"
                   name="currentPassword"
                   value={currentPassword}
                   onChange={(e) => setCurrentPassword(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group controlId="formPassword">
+                <Form.Label>New Password </Form.Label>
+                <Form.Control
+                  type="password"
+                  name="password"
+                  value={updatedUser.password}
+                  onChange={handleChange}
                 />
               </Form.Group>
               <Button variant="primary" type="submit">
