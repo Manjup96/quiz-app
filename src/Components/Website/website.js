@@ -9,7 +9,6 @@ const Website = () => {
 
 
     const defaultUrl = 'http://127.0.0.1:5502/sample.html';
-
     const userName = user?.name || 'user';
     const userId = user?.uid || 'unknown';
     const urlWithUserNameAndId = `${defaultUrl}?name=${encodeURIComponent(userName)}&uid=${encodeURIComponent(userId)}`;
