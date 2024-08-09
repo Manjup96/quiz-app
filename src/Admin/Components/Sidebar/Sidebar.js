@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { faBars, faTachometerAlt, faUsers, faUserCog, faChartBar, faFileAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faTachometerAlt, faUser, faCog, faGauge , faUserCog, faChartBar, faFileAlt, faClipboardList } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import '../../../Styles/Sidebar.css';
@@ -31,36 +31,36 @@ const Sidebar = () => {
 </li>
           <li className={`nav-item ${location.pathname === '/admindashboard' ? 'active' : ''}`}>
             <Link className="nav-link" to="/admindashboard">
-              <FontAwesomeIcon icon={faTachometerAlt} className="nav-icon" />
+              <FontAwesomeIcon icon={faGauge } className="nav-icon" />
               {!collapsed && <span className="link_text">Dashboard</span>}
             </Link>
           </li>
           <li className={`nav-item ${location.pathname === '/user' ? 'active' : ''}`}>
             <Link className="nav-link" to="/user">
-              <FontAwesomeIcon icon={faUsers} className="nav-icon" />
+              <FontAwesomeIcon icon={faCog} className="nav-icon" />
               {!collapsed && <span className="link_text">Users</span>}
             </Link>
           </li>
           <li className={`nav-item ${location.pathname === '/manageUsers' ? 'active' : ''}`}>
             <Link className="nav-link" to="/manageUsers">
-              <FontAwesomeIcon icon={faUserCog} className="nav-icon" />
+              <FontAwesomeIcon icon={faUser} className="nav-icon" />
               {!collapsed && <span className="link_text">Manage Users</span>}
             </Link>
           </li>
           <li className={`nav-item ${location.pathname === '/scores' ? 'active' : ''}`}>
             <Link className="nav-link" to="/scores">
-              <FontAwesomeIcon icon={faChartBar} className="nav-icon" />
+              <FontAwesomeIcon icon={faFileAlt} className="nav-icon" />
               {!collapsed && <span className="link_text">Scores</span>}
             </Link>
           </li>
           <li className={`nav-item ${location.pathname === '' ? 'active' : ''}`}>
             <Link className="nav-link" to="">
-              <FontAwesomeIcon icon={faFileAlt} className="nav-icon" />
+              <FontAwesomeIcon icon={faClipboardList} className="nav-icon" />
               {!collapsed && <span className="link_text">Reports</span>}
             </Link>
           </li>
         </ul>
-      </div>
+      </div> 
     </div>
   );
 };
