@@ -13,7 +13,7 @@ const Scores = () => {
   const [scores, setScores] = useState([]);
   const [userNames, setUserNames] = useState({}); // Store user names and student IDs with ID as key
   const [searchQuery, setSearchQuery] = useState('');
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(8);
   const [currentPage, setCurrentPage] = useState(1);
   const [showModal, setShowModal] = useState(false);
   const [selectedQuestionScores, setSelectedQuestionScores] = useState([]);
