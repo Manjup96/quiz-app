@@ -6,21 +6,16 @@ import { faEye, faEyeSlash, faInfoCircle } from '@fortawesome/free-solid-svg-ico
 import logo from "../Img/main-logo.png"; 
 import {
   createUserWithEmailAndPassword,
-  deleteUser,
-  updateEmail,
-  updatePassword,
-  reauthenticateWithCredential,
-  EmailAuthProvider
 } from 'firebase/auth';
 import {
   setDoc,
   doc,
-  collection,
   getDocs,
-  deleteDoc,
-  updateDoc
+  query,
+  collection,
+  where
 } from 'firebase/firestore';
-import "./../../Styles/SignUp.css"
+import "./../../Styles/SignUp.css";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -31,7 +26,6 @@ const SignUp = () => {
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [users, setUsers] = useState([]);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -43,19 +37,34 @@ const SignUp = () => {
     setError('');
 
     try {
+      // Check if the email already exists
+      const usersQuery = query(collection(db, 'users'), where('email', '==', email));
+      const querySnapshot = await getDocs(usersQuery);
 
+      if (!querySnapshot.empty) {
+        setError('This email is already registered.');
+        setIsSubmitting(false);
+        return;
+      }
+
+      // If email does not exist, proceed with registration
       const counterDoc = await db.collection('counters').doc('userCounter').get();
       const currentCounter = counterDoc.exists ? counterDoc.data().current : 0;
       const newCounter = currentCounter + 1;
       const newUserId = `std${newCounter}`;
       await db.collection('counters').doc('userCounter').set({ current: newCounter });
-      
 
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      await setDoc(doc(db, 'users', user.uid), { std: newUserId, name, email,password,mobile, createdAt: new Date(), });
+      await setDoc(doc(db, 'users', user.uid), {
+        std: newUserId,
+        name,
+        email,
+        password,
+        mobile,
+        createdAt: new Date(),
+      });
 
-      setUsers(prevUsers => [...prevUsers, { id: user.uid, std: newUserId, name, email,password,mobile, createdAt: new Date(), }]);
       setName('');
       setEmail('');
       setPassword('');
@@ -64,17 +73,13 @@ const SignUp = () => {
       setIsSubmitting(false);
 
       alert('You have registered successfully!');
-      navigate('/'); 
+      navigate('/');
     } catch (err) {
       console.error("Error during registration: ", err);
       setError(err.message);
       setIsSubmitting(false);
     }
   };
-
-
-
- 
 
   const canSubmit = email.trim() !== '' && password.trim() !== '' && mobile.trim() !== '';
 
@@ -86,7 +91,7 @@ const SignUp = () => {
             <img src={logo} alt="Logo" />
           </div>
           <form className='signup-form' onSubmit={handleSubmit}>
-            <h2 className='signup-main-heading'>SignUp</h2>
+            <h2 className='signup-main-heading'>Sign Up</h2>
             <div className='signup_position_relative'>
               <input
                 type="text"
