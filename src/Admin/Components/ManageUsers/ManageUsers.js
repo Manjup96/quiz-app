@@ -3,7 +3,9 @@ import { auth, db } from '../../../Components/Firebase/FirebaseConfig';
 import Sidebar from '../../../Admin/Components/Sidebar/Sidebar';
 import Header from '../../../Admin/Components/Header/Header';
 import { useAuth } from '../../../Components/Context/AuthContext';
-import './ManageUsers.css'; // Ensure you create and include this CSS file
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { setDoc, doc, getDocs, query, collection, where, orderBy, limit } from 'firebase/firestore';
+import './ManageUsers.css';
 
 const ManageUsers = () => {
   const { user } = useAuth();
@@ -12,47 +14,67 @@ const ManageUsers = () => {
   const [password, setPassword] = useState('');
   const [mobile, setMobile] = useState('');
   const [error, setError] = useState('');
-  const [newUserId, setNewUserId] = useState('');
+  const [newStdId, setNewStdId] = useState('');
 
   useEffect(() => {
-    const fetchLatestUserId = async () => {
+    const fetchLatestStdId = async () => {
       try {
-        const querySnapshot = await db.collection('users').orderBy('createdAt', 'desc').limit(1).get();
+        const querySnapshot = await getDocs(
+          query(collection(db, 'users'), orderBy('std', 'desc'), limit(1))
+        );
+
         if (!querySnapshot.empty) {
           const latestUser = querySnapshot.docs[0].data();
-          const latestUserId = latestUser.id;
-          const latestIdNumber = parseInt(latestUserId.replace('std', ''));
-          setNewUserId(`std${latestIdNumber + 1}`);
+          
+          // Extract the numeric part of the ID and increment it
+          const latestStdId = latestUser.std;
+          const latestIdNumber = parseInt(latestStdId.replace('std', ''));
+
+          if (!isNaN(latestIdNumber)) {
+            setNewStdId(`std${latestIdNumber + 1}`);
+          } else {
+            setError("Invalid std ID format.");
+            setNewStdId('std1');
+          }
         } else {
-          setNewUserId('std1'); // If no users exist, start with std1
+          // No users in the collection, start with std1
+          setNewStdId('std1');
         }
       } catch (err) {
-        console.error("Error fetching latest user ID: ", err);
-        setError('Error fetching latest user ID');
+        console.error("Error fetching latest std ID: ", err.message);
+        setError('Error fetching latest std ID: ' + err.message);
       }
     };
 
-    fetchLatestUserId();
+    fetchLatestStdId();
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setError('');
 
     try {
-      // Create a user with email and password
-      const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+      // Check if the email already exists
+      const usersQuery = query(collection(db, 'users'), where('email', '==', email));
+      const querySnapshot = await getDocs(usersQuery);
+
+      if (!querySnapshot.empty) {
+        setError('This email is already registered.');
+        return;
+      }
+
+      // If email does not exist, proceed with registration
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
       // Add user data to Firestore
-      await db.collection('users').doc(user.uid).set({
-        id: newUserId,
+      await setDoc(doc(db, 'users', user.uid), {
+        std: newStdId,
         name,
         email,
-        password,
         mobile,
-        createdAt: new Date(),
+        password, // Storing password in Firestore is not recommended. Use hashing.
+        createdAt: new Date(), // This will be stored as a Firestore timestamp
       });
 
       // Clear the form
@@ -63,8 +85,8 @@ const ManageUsers = () => {
       setError('');
       alert('Registered successfully!');
     } catch (err) {
-      console.error("Error during registration: ", err);
-      setError(err.message);
+      console.error("Error during registration: ", err.message);
+      setError('Error during registration: ' + err.message);
     }
   };
 
