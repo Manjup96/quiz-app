@@ -89,12 +89,13 @@ function Stages() {
                   const greenFilter = isGreen(passage.name) ? 'green-filter' : '';
                   
                   return (
-                    <div
-                      className={`passage-item ${greenFilter}`}
+                    
+                    <div>
+                      <div className={`passage-item ${greenFilter}`}
                       key={idx}
-                      onClick={() => handlePassageClick(passage.name, idx)}
-                    >
+                      onClick={() => handlePassageClick(passage.name, idx)}>
                       <img src={passage.img} alt={passage.name} />
+                      </div>
                       {idx < passages[stage].length - 1 && <div className="connection-line"></div>}
                     </div>
                   );
