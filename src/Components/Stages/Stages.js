@@ -15,6 +15,7 @@ function Stages() {
   const [selectedStage, setSelectedStage] = useState(null);
   const [selectedPassage, setSelectedPassage] = useState(null);
   const [scores, setScores] = useState([]);
+  const [websiteCompleted, setWebsiteCompleted] = useState(false);
 
   const stages = ['Passage1', 'Passage2', 'Passage3', 'Passage4', 'Passage5'];
 
@@ -22,7 +23,6 @@ function Stages() {
     'Passage1': [
       { name: 'website', img: passage1Img },
       { name: 'Vocabulary', img: passage2Img },
-      // { name: 'Comprehension', img: passage2Img },
       { name: 'Fill in the blanks', img: passage4Img },
       { name: 'Jumbled words', img: passage3Img },
       { name: 'Spelling', img: passage5Img },
@@ -30,7 +30,6 @@ function Stages() {
     'Passage2': [
       { name: 'website', img: passage1Img },
       { name: 'Vocabulary', img: passage2Img },
-     
       { name: 'Fill in the blanks', img: passage3Img },
       { name: 'Jumbled words', img: passage4Img },
       { name: 'Spelling', img: passage5Img },
@@ -53,7 +52,29 @@ function Stages() {
       }
     };
 
+    const fetchWebsiteStatus = async () => {
+      try {
+        const passageDocRef = db.collection('passage').doc(user.uid);
+        const doc = await passageDocRef.get();
+        if (doc.exists) {
+          const data = doc.data();
+          console.log("Passage data:", data); // Debugging statement
+          if (data.status === 'completed') {
+            setWebsiteCompleted(true);
+            console.log("Website completed set to true"); // Debugging statement
+          } else {
+            console.log("Website status is not completed"); // Debugging statement
+          }
+        } else {
+          console.log("Document does not exist"); // Debugging statement
+        }
+      } catch (error) {
+        console.error("Error fetching passage status:", error);
+      }
+    };
+
     fetchScores();
+    fetchWebsiteStatus();
   }, [user.uid]);
 
   const handleStageClick = (stage) => {
@@ -67,11 +88,7 @@ function Stages() {
       "website": "/website",
       "Vocabulary": "/Vocabulary",
       "Fill in the blanks": "/FillInTheBlank",
-
       "Jumbled words": "/Jumblewords",
-
-      "Jumbled words": "/JumbleWords",
-
       "Spelling": "/Spelling"
     };
     if (navigationRoutes[passageName]) {
@@ -80,6 +97,9 @@ function Stages() {
   };
 
   const isGreen = (activity) => {
+    if (activity === 'website' && websiteCompleted) {
+      return true;
+    }
     return scores.some(score => score.activity === activity);
   };
 
@@ -93,14 +113,12 @@ function Stages() {
               <div className="passage-row">
                 {passages[stage].map((passage, idx) => {
                   const greenFilter = isGreen(passage.name) ? 'green-filter' : '';
-                  
+
                   return (
-                    
-                    <div>
+                    <div key={idx}>
                       <div className={`passage-item ${greenFilter}`}
-                      key={idx}
-                      onClick={() => handlePassageClick(passage.name, idx)}>
-                      <img src={passage.img} alt={passage.name} />
+                        onClick={() => handlePassageClick(passage.name, idx)}>
+                        <img src={passage.img} alt={passage.name} />
                       </div>
                       {idx < passages[stage].length - 1 && <div className="connection-line"></div>}
                     </div>

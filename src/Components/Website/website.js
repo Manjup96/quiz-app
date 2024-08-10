@@ -13,15 +13,11 @@ const Website = () => {
     const urlWithUserNameAndId = `${defaultUrl}?name=${encodeURIComponent(userName)}&uid=${encodeURIComponent(userId)}`;
 
     useEffect(() => {
-        // Store userName and userId in localStorage
-        localStorage.setItem('userName', userName);
-        localStorage.setItem('userId', userId);
-
         const iframe = document.getElementById('embeddedContent');
         iframe.onload = () => {
             iframe.contentWindow.postMessage({ type: 'changePage', pageNumber: passageIndex }, '*');
         };
-    }, [userName, userId, passageIndex]);
+    }, [passageIndex]);
 
     return (
         <iframe
