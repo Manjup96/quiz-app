@@ -112,6 +112,19 @@
   z-index: -1;
 }
 
+/* .green-image {
+  border: 3px solid green;
+  
+  filter: hue-rotate(90deg);
+} */
+
+
+.passage-item.green-filter img {
+  filter: hue-rotate(100deg) brightness(1.2);
+  
+}
+
+
 
 @media (max-width: 767px) {
 
