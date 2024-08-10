@@ -20,15 +20,17 @@ function Stages() {
 
   const passages = {
     'Passage1': [
-      { name: 'Vocabulary', img: passage1Img },
-      { name: 'Comprehension', img: passage2Img },
+      { name: 'website', img: passage1Img },
+      { name: 'Vocabulary', img: passage2Img },
+      // { name: 'Comprehension', img: passage2Img },
       { name: 'Fill in the blanks', img: passage4Img },
       { name: 'Jumbled Words', img: passage3Img },
       { name: 'Spelling', img: passage5Img },
     ],
     'Passage2': [
-      { name: 'Vocabulary', img: passage1Img },
-      { name: 'Comprehension', img: passage2Img },
+      { name: 'website', img: passage1Img },
+      { name: 'Vocabulary', img: passage2Img },
+      // { name: 'Comprehension', img: passage2Img },
       { name: 'Fill in the blanks', img: passage3Img },
       { name: 'Jumbled Words', img: passage4Img },
       { name: 'Spelling', img: passage5Img },
@@ -62,8 +64,9 @@ function Stages() {
   const handlePassageClick = (passageName, passageIndex) => {
     setSelectedPassage(passageName);
     const navigationRoutes = {
+      "website": "/website",
       "Vocabulary": "/Vocabulary",
-      "Comprehension": "/Comprehension",
+      // "Comprehension": "/Comprehension",
       "Fill in the blanks": "/FillInTheBlank",
       "Jumbled Words": "/Jumblewords",
       "Spelling": "/Spelling"
