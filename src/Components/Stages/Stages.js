@@ -30,7 +30,7 @@ function Stages() {
     'Passage2': [
       { name: 'website', img: passage1Img },
       { name: 'Vocabulary', img: passage2Img },
-      // { name: 'Comprehension', img: passage2Img },
+     
       { name: 'Fill in the blanks', img: passage3Img },
       { name: 'Jumbled words', img: passage4Img },
       { name: 'Spelling', img: passage5Img },
@@ -67,7 +67,11 @@ function Stages() {
       "website": "/website",
       "Vocabulary": "/Vocabulary",
       "Fill in the blanks": "/FillInTheBlank",
+
       "Jumbled words": "/Jumblewords",
+
+      "Jumbled words": "/JumbleWords",
+
       "Spelling": "/Spelling"
     };
     if (navigationRoutes[passageName]) {
