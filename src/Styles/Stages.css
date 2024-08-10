@@ -94,6 +94,8 @@
   text-align: center;
   width: 100px;
   height: 100px;
+  padding-top: 17px;
+  margin-right: 10px;
 }
 
 .passage-item img {
@@ -119,8 +121,9 @@
 } */
 
 
-.passage-item.green-filter img {
-  filter: hue-rotate(100deg) brightness(1.2);
+.passage-item.green-filter  {
+  /* filter: hue-rotate(100deg) brightness(1.2); */
+  background-color: green;
   
 }
 
