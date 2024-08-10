@@ -18,6 +18,11 @@ import User from "../src/Admin/Components/User/User";
 import ManageUsers from "../src/Admin/Components/ManageUsers/ManageUsers"
 import Score from "../src/Admin/Components/Scores/Scores";
 import LeaderBoard from "./Components/Cohort/LeaderBoard";
+import Vocabulary from "./Components/Website/Vocabulary"
+import Comprehension from "./Components/Website/Comprehension";
+import FillInTheBlank from "./Components/Website/FillInTheBlanks";
+import Jumblewords from "./Components/Website/JumbledWords";
+import Spelling from "./Components/Website/Spelling";
 
 
 
@@ -41,6 +46,11 @@ function App() {
         <Route path="/manageUsers" element={<ManageUsers />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/website" element={<Website />} />
+        <Route path="/Comprehension" element={<Comprehension />} />
+        <Route path="/Vocabulary" element={<Vocabulary />} />
+        <Route path="/FillInTheBlank" element={<FillInTheBlank />} />
+        <Route path="/Jumblewords" element={<Jumblewords />} />
+        <Route path="/Spelling" element={<Spelling />} />
         <Route path="/scores" element={<Score />} />
         <Route path="/leaderboard" element={<LeaderBoard />} />
 
