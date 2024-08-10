@@ -24,7 +24,7 @@ function Stages() {
       { name: 'Vocabulary', img: passage2Img },
       // { name: 'Comprehension', img: passage2Img },
       { name: 'Fill in the blanks', img: passage4Img },
-      { name: 'Jumbled Words', img: passage3Img },
+      { name: 'Jumbled words', img: passage3Img },
       { name: 'Spelling', img: passage5Img },
     ],
     'Passage2': [
@@ -32,7 +32,7 @@ function Stages() {
       { name: 'Vocabulary', img: passage2Img },
       // { name: 'Comprehension', img: passage2Img },
       { name: 'Fill in the blanks', img: passage3Img },
-      { name: 'Jumbled Words', img: passage4Img },
+      { name: 'Jumbled words', img: passage4Img },
       { name: 'Spelling', img: passage5Img },
     ],
     // Add other stages with corresponding passages
@@ -66,9 +66,8 @@ function Stages() {
     const navigationRoutes = {
       "website": "/website",
       "Vocabulary": "/Vocabulary",
-      // "Comprehension": "/Comprehension",
       "Fill in the blanks": "/FillInTheBlank",
-      "Jumbled Words": "/Jumblewords",
+      "Jumbled words": "/Jumblewords",
       "Spelling": "/Spelling"
     };
     if (navigationRoutes[passageName]) {
