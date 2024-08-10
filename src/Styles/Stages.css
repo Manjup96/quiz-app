@@ -121,7 +121,7 @@
 
 .passage-item.green-filter img {
   filter: hue-rotate(100deg) brightness(1.2);
-  
+  background-color: green;
 }
 
 
