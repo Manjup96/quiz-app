@@ -20,19 +20,20 @@ function Stages() {
 
   const passages = {
     'Passage1': [
-      { name: 'passage1', img: passage1Img },
-      { name: 'passage2', img: passage2Img },
-      { name: 'passage3', img: passage4Img },
-      { name: 'passage4', img: passage3Img },
-      { name: 'passage5', img: passage5Img },
-      // { name: 'passage6', img: passage4Img }
+      { name: 'website', img: passage1Img },
+      { name: 'Vocabulary', img: passage2Img },
+      // { name: 'Comprehension', img: passage2Img },
+      { name: 'Fill in the blanks', img: passage4Img },
+      { name: 'Jumbled Words', img: passage3Img },
+      { name: 'Spelling', img: passage5Img },
     ],
     'Passage2': [
-      { name: 'passage1', img: passage1Img },
-      { name: 'passage2', img: passage2Img },
-      { name: 'passage3', img: passage3Img },
-      { name: 'passage4', img: passage4Img },
-      { name: 'passage5', img: passage5Img },
+      { name: 'website', img: passage1Img },
+      { name: 'Vocabulary', img: passage2Img },
+      // { name: 'Comprehension', img: passage2Img },
+      { name: 'Fill in the blanks', img: passage3Img },
+      { name: 'Jumbled Words', img: passage4Img },
+      { name: 'Spelling', img: passage5Img },
     ],
     // Add other stages with corresponding passages
   };
@@ -62,29 +63,21 @@ function Stages() {
 
   const handlePassageClick = (passageName, passageIndex) => {
     setSelectedPassage(passageName);
-    const navigationRoutes = [
-      "/website",
-      "/Vocabulary",
-      "/FillInTheBlank",
-      "/Jumblewords",
-      "/Spelling",
-      // "/Comprehension"
-    ];
-    if (navigationRoutes[passageIndex]) {
-      navigate(navigationRoutes[passageIndex]);
+    const navigationRoutes = {
+      "website": "/website",
+      "Vocabulary": "/Vocabulary",
+      // "Comprehension": "/Comprehension",
+      "Fill in the blanks": "/FillInTheBlank",
+      "Jumbled Words": "/Jumblewords",
+      "Spelling": "/Spelling"
+    };
+    if (navigationRoutes[passageName]) {
+      navigate(navigationRoutes[passageName]);
     }
   };
 
   const isGreen = (activity) => {
-    const greenActivities = [
-      'website',
-      'Vocabulary',
-      'Fill in the blanks',
-      'Jumbled Words',
-      'Spelling',
-      // 'Comprehension',
-    ];
-    return greenActivities.includes(activity);
+    return scores.some(score => score.activity === activity);
   };
 
   return (
@@ -95,20 +88,8 @@ function Stages() {
           {selectedStage === stage && (
             <div className="passage-structure">
               <div className="passage-row">
-                {passages[stage].map((passage, idx) => (
-                  <div
-                  className={`passage-item ${idx !== 0 ? 'inactive' : 'active'}`}
-                    key={idx}
-                    onClick={() => handlePassageClick(passage.name, idx)}
-                  >
-                    <img src={passage.img} alt={passage.name} />
-                    {idx < passages[stage].length - 1 && <div className="connection-line"></div>}
-                  </div>
-                ))}
-
                 {passages[stage].map((passage, idx) => {
-                  const correspondingScore = scores[idx];
-                  const greenFilter = correspondingScore && isGreen(correspondingScore.activity) ? 'green-filter' : '';
+                  const greenFilter = isGreen(passage.name) ? 'green-filter' : '';
                   
                   return (
                     <div
@@ -121,7 +102,6 @@ function Stages() {
                     </div>
                   );
                 })}
-
               </div>
             </div>
           )}

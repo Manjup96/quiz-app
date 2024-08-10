@@ -4,7 +4,7 @@ import { useAuth } from '../Context/AuthContext';
 import Header from '../Header/Header';
 import Header2 from '../Header/Header2';
 import Stages from "../Stages/Stages";
-import Stages1 from "../Stages/Stages_New";
+// import Stages1 from "../Stages/Stages_New";
 import LeaderBoard from '../Cohort/LeaderBoard';
 import "../../Styles/UserDashboard.css";
 
@@ -28,8 +28,8 @@ const Dashboard = () => {
       )} */}
       <Header2 />
       <div >
-      {/* <Stages/> */}
-      <Stages1/>
+      <Stages/>
+      {/* <Stages1/> */}
       <LeaderBoard/>
       </div>
     </div>
