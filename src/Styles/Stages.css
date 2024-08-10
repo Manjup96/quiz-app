@@ -63,7 +63,7 @@
 }
 
 .stage-button {
-  background-color: #007bff;
+  background-color: #007bff; /* Default blue color */
   color: white;
   border: none;
   padding: 10px;
@@ -72,7 +72,13 @@
   border-radius: 5px;
   width: 100%;
   text-align: left;
+  transition: background-color 0.3s ease; /* Smooth transition */
 }
+
+.stage-button.green-filter {
+  background-color: #28a745; /* Green color when all activities are completed */
+}
+
 
 .passage-structure {
   position: relative;

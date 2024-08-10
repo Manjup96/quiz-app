@@ -7,7 +7,7 @@ import passage3Img from '../Assets/images/img3.jpg';
 import passage4Img from '../Assets/images/img4.jpg';
 import passage5Img from '../Assets/images/img5.jpg';
 import { useAuth } from '../Context/AuthContext';
-import { db } from '../Firebase/FirebaseConfig'; // Import your firebase configuration
+import { db } from '../Firebase/FirebaseConfig';
 
 function Stages() {
   const { user } = useAuth();
@@ -16,6 +16,8 @@ function Stages() {
   const [selectedPassage, setSelectedPassage] = useState(null);
   const [scores, setScores] = useState([]);
   const [websiteCompleted, setWebsiteCompleted] = useState(false);
+  const [passage1Completed, setPassage1Completed] = useState(false);
+  const [passage1Green, setPassage1Green] = useState(false);
 
   const stages = ['Passage1', 'Passage2', 'Passage3', 'Passage4', 'Passage5'];
 
@@ -44,7 +46,7 @@ function Stages() {
         const doc = await userDocRef.get();
         if (doc.exists) {
           const data = doc.data();
-          const fetchedScores = data.scores || []; // Default to an empty array if no scores field
+          const fetchedScores = data.scores || [];
           setScores(fetchedScores);
         }
       } catch (error) {
@@ -58,15 +60,9 @@ function Stages() {
         const doc = await passageDocRef.get();
         if (doc.exists) {
           const data = doc.data();
-          console.log("Passage data:", data); // Debugging statement
           if (data.status === 'completed') {
             setWebsiteCompleted(true);
-            console.log("Website completed set to true"); // Debugging statement
-          } else {
-            console.log("Website status is not completed"); // Debugging statement
           }
-        } else {
-          console.log("Document does not exist"); // Debugging statement
         }
       } catch (error) {
         console.error("Error fetching passage status:", error);
@@ -77,12 +73,27 @@ function Stages() {
     fetchWebsiteStatus();
   }, [user.uid]);
 
+  useEffect(() => {
+    const checkAllPassage1Completed = () => {
+      if (passages['Passage1']) {
+        const allCompleted = passages['Passage1'].every(passage => isGreen(passage.name));
+        setPassage1Completed(allCompleted);
+        console.log("data", allCompleted);
+        if (allCompleted) {
+          setPassage1Green(true);
+        }
+      }
+    };
+
+    checkAllPassage1Completed();
+  }, [scores, websiteCompleted]);
+
   const handleStageClick = (stage) => {
     setSelectedStage(stage === selectedStage ? null : stage);
     setSelectedPassage(null);
   };
 
-  const handlePassageClick = (passageName, passageIndex) => {
+  const handlePassageClick = (passageName) => {
     setSelectedPassage(passageName);
     const navigationRoutes = {
       "website": "/website",
@@ -105,30 +116,36 @@ function Stages() {
 
   return (
     <div className="card-container">
-      {stages.map((stage, index) => (
-        <div className="stage-container" key={index}>
-          <button className="stage-button" onClick={() => handleStageClick(stage)}>{stage}</button>
-          {selectedStage === stage && (
-            <div className="passage-structure">
-              <div className="passage-row">
-                {passages[stage].map((passage, idx) => {
-                  const greenFilter = isGreen(passage.name) ? 'green-filter' : '';
+      {stages.map((stage, index) => {
+        const stageButtonClass = (stage === 'Passage1' && passage1Green) ? 'green-filter' : '';
 
-                  return (
-                    <div key={idx}>
-                      <div className={`passage-item ${greenFilter}`}
-                        onClick={() => handlePassageClick(passage.name, idx)}>
-                        <img src={passage.img} alt={passage.name} />
+        return (
+          <div className="stage-container" key={index}>
+            <button className={`stage-button ${stageButtonClass}`} onClick={() => handleStageClick(stage)}>
+              {stage}
+            </button>
+            {selectedStage === stage && (
+              <div className="passage-structure">
+                <div className="passage-row">
+                  {passages[stage]?.map((passage, idx) => {
+                    const greenFilter = isGreen(passage.name) ? 'green-filter' : '';
+
+                    return (
+                      <div key={idx}>
+                        <div className={`passage-item ${greenFilter}`}
+                          onClick={() => handlePassageClick(passage.name)}>
+                          <img src={passage.img} alt={passage.name} />
+                        </div>
+                        {idx < passages[stage].length - 1 && <div className="connection-line"></div>}
                       </div>
-                      {idx < passages[stage].length - 1 && <div className="connection-line"></div>}
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          )}
-        </div>
-      ))}
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }
