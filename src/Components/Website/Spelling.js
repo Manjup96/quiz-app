@@ -7,7 +7,7 @@ const Spelling = () => {
     const location = useLocation();
     const passageIndex = location.state?.passageIndex || 1;
 
-    const defaultUrl = 'http://127.0.0.1:5502/Spelling.html';
+    const defaultUrl = 'http://127.0.0.1:5502/Passage%201/Spelling.html';
     const userName = user?.name || 'user';
     const userId = user?.uid || 'unknown';
     const urlWithUserNameAndId = `${defaultUrl}?name=${encodeURIComponent(userName)}&uid=${encodeURIComponent(userId)}`;

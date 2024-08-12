@@ -15,9 +15,7 @@ function Stages() {
   const [selectedStage, setSelectedStage] = useState(null);
   const [selectedPassage, setSelectedPassage] = useState(null);
   const [scores, setScores] = useState([]);
-  const [websiteCompleted, setWebsiteCompleted] = useState(false);
-  const [passage1Completed, setPassage1Completed] = useState(false);
-  const [passage1Green, setPassage1Green] = useState(false);
+  const [passageCompletion, setPassageCompletion] = useState({});
 
   const stages = ['Passage1', 'Passage2', 'Passage3', 'Passage4', 'Passage5'];
 
@@ -36,7 +34,20 @@ function Stages() {
       { name: 'Jumbled words', img: passage4Img },
       { name: 'Spelling', img: passage5Img },
     ],
-    // Add other stages with corresponding passages
+    'Passage3': [
+      { name: 'website', img: passage1Img },
+      { name: 'Vocabulary', img: passage2Img },
+      { name: 'Fill in the blanks', img: passage4Img },
+      { name: 'Jumbled words', img: passage3Img },
+      { name: 'Spelling', img: passage5Img },
+    ],
+    'Passage4': [
+      { name: 'website', img: passage1Img },
+      { name: 'Vocabulary', img: passage2Img },
+      { name: 'Fill in the blanks', img: passage3Img },
+      { name: 'Jumbled words', img: passage4Img },
+      { name: 'Spelling', img: passage5Img },
+    ],
   };
 
   useEffect(() => {
@@ -54,70 +65,98 @@ function Stages() {
       }
     };
 
-    const fetchWebsiteStatus = async () => {
+    const fetchPassageCompletionStatus = async () => {
       try {
-        const passageDocRef = db.collection('passage').doc(user.uid);
-        const doc = await passageDocRef.get();
-        if (doc.exists) {
-          const data = doc.data();
-          if (data.status === 'completed') {
-            setWebsiteCompleted(true);
+        const passageCollections = {
+          'Passage1': 'passage',
+          'Passage2': 'passage2',
+          'Passage3': 'passage3',
+          'Passage4': 'passage4',
+        };
+
+        const fetchStatusForStage = async (stage) => {
+          const collectionName = passageCollections[stage];
+          if (collectionName) {
+            const passageDocRef = db.collection(collectionName).doc(user.uid);
+            const doc = await passageDocRef.get();
+            if (doc.exists) {
+              const data = doc.data();
+              const completionStatus = {};
+              passages[stage].forEach(passage => {
+                completionStatus[passage.name] = data.status?.[passage.name] === 'completed';
+              });
+              return completionStatus;
+            }
           }
+          return {};
+        };
+
+        const completionStatuses = {};
+        for (const stage of stages) {
+          completionStatuses[stage] = await fetchStatusForStage(stage);
         }
+        setPassageCompletion(completionStatuses);
       } catch (error) {
         console.error("Error fetching passage status:", error);
       }
     };
 
     fetchScores();
-    fetchWebsiteStatus();
+    fetchPassageCompletionStatus();
   }, [user.uid]);
-
-  useEffect(() => {
-    const checkAllPassage1Completed = () => {
-      if (passages['Passage1']) {
-        const allCompleted = passages['Passage1'].every(passage => isGreen(passage.name));
-        setPassage1Completed(allCompleted);
-        console.log("data", allCompleted);
-        if (allCompleted) {
-          setPassage1Green(true);
-        }
-      }
-    };
-
-    checkAllPassage1Completed();
-  }, [scores, websiteCompleted]);
 
   const handleStageClick = (stage) => {
     setSelectedStage(stage === selectedStage ? null : stage);
     setSelectedPassage(null);
   };
 
-  const handlePassageClick = (passageName) => {
+  const handlePassageClick = (passageName, stage) => {
     setSelectedPassage(passageName);
     const navigationRoutes = {
-      "website": "/website",
-      "Vocabulary": "/Vocabulary",
-      "Fill in the blanks": "/FillInTheBlank",
-      "Jumbled words": "/Jumblewords",
-      "Spelling": "/Spelling"
+      'Passage1': {
+        "website": "/website",
+        "Vocabulary": "/Vocabulary",
+        "Fill in the blanks": "/FillInTheBlank",
+        "Jumbled words": "/Jumblewords",
+        "Spelling": "/Spelling"
+      },
+      'Passage2': {
+        "website": "/website2",
+        "Vocabulary": "/Vocabulary2",
+        "Fill in the blanks": "/FillInTheBlank2",
+        "Jumbled words": "/Jumblewords2",
+        "Spelling": "/Spelling2"
+      },
+      'Passage3': {
+        "website": "/website3",
+        "Vocabulary": "/Vocabulary3",
+        "Fill in the blanks": "/FillInTheBlank3",
+        "Jumbled words": "/Jumblewords3",
+        "Spelling": "/Spelling3"
+      },
+      'Passage4': {
+        "website": "/website4",
+        "Vocabulary": "/Vocabulary4",
+        "Fill in the blanks": "/FillInTheBlank4",
+        "Jumbled words": "/Jumblewords4",
+        "Spelling": "/Spelling4"
+      },
     };
-    if (navigationRoutes[passageName]) {
-      navigate(navigationRoutes[passageName]);
+
+    const route = navigationRoutes[stage]?.[passageName];
+    if (route) {
+      navigate(route);
     }
   };
 
-  const isGreen = (activity) => {
-    if (activity === 'website' && websiteCompleted) {
-      return true;
-    }
-    return scores.some(score => score.activity === activity);
+  const isGreen = (activity, stage) => {
+    return passageCompletion[stage]?.[activity] || scores.some(score => score.activity === activity);
   };
 
   return (
     <div className="card-container">
       {stages.map((stage, index) => {
-        const stageButtonClass = (stage === 'Passage1' && passage1Green) ? 'green-filter' : '';
+        const stageButtonClass = passages[stage]?.every(p => isGreen(p.name, stage)) ? 'green-filter' : '';
 
         return (
           <div className="stage-container" key={index}>
@@ -128,12 +167,12 @@ function Stages() {
               <div className="passage-structure">
                 <div className="passage-row">
                   {passages[stage]?.map((passage, idx) => {
-                    const greenFilter = isGreen(passage.name) ? 'green-filter' : '';
+                    const greenFilter = isGreen(passage.name, stage) ? 'green-filter' : '';
 
                     return (
                       <div key={idx}>
                         <div className={`passage-item ${greenFilter}`}
-                          onClick={() => handlePassageClick(passage.name)}>
+                          onClick={() => handlePassageClick(passage.name, stage)}>
                           <img src={passage.img} alt={passage.name} />
                         </div>
                         {idx < passages[stage].length - 1 && <div className="connection-line"></div>}

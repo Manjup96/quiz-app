@@ -78,6 +78,14 @@
 .stage-button.green-filter {
   background-color: #28a745; /* Green color when all activities are completed */
 }
+.stage-button.green-filter {
+  background-color: #28a745 !important; /* Use !important to ensure it's applied */
+  border: 2px solid #fff; /* Add a border to see the effect clearly */
+}
+.green-filter {
+  background-color: green;
+  color: white; /* Optional: if you want text to be visible on the green background */
+}
 
 
 .passage-structure {
